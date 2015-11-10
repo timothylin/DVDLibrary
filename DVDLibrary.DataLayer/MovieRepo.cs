@@ -19,7 +19,7 @@ namespace DVDLibrary.DataLayer
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText = "select * " +
-                                  "FROM Movie m ";
+                                  "FROM Movies m ";
                 cmd.Connection = cn;
                 cn.Open();
 
@@ -40,15 +40,15 @@ namespace DVDLibrary.DataLayer
             MovieInfo movie = new MovieInfo();
 
             movie.MovieID = (int)dr["MovieID"];
-            movie.Title = dr["MovieTitle"].ToString();
-            movie.MPAARating = dr["Rating"].ToString();
+            //movie.Title = dr["Title"].ToString();
+            //movie.MPAARating = dr["Rating"].ToString();
             //movie.UserRating = dr["UserRating"].ToString();
-            movie.ActorLastname = dr["Actors"].ToString();
+            //movie.ActorLastname = dr["Actors"].ToString();
             //movie.UserNotes = dr["UserNotes"].ToString();
             //movie.Studio = dr["Studio"].ToString();
 
-            if (dr["ReleaseDate"] != DBNull.Value)
-                movie.ReleaseDate = (DateTime)dr["ReleaseDate"];
+            //if (dr["ReleaseDate"] != DBNull.Value)
+            //    movie.ReleaseDate = (DateTime)dr["ReleaseDate"];
 
             return movie;
         }
