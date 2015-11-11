@@ -11,6 +11,7 @@ namespace DVDLibrary.DataLayer
 {
     public class MovieRepo
     {
+
         public List<MovieInfo> GetAllMovieInfo()
         {
             List<MovieInfo> movies = new List<MovieInfo>();
@@ -18,15 +19,15 @@ namespace DVDLibrary.DataLayer
             using (SqlConnection cn = new SqlConnection(Settings.ConnectionString))
             {
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = "select m.MovieId, m.MovieTitle, mpaa.FilmRating, m.ReleaseDate," +
-                                   "d.LastName, s.StudioName"+
-                                    "from Movies m"+
-                                    "Join Directors d"+
-                                    "on m.DirectorID = d.DirectorID"+
-                                    "Join studios s"+
-                                    "on m.StudioID = s.StudioID"+
-                                    "join MPAARatings mpaa"+
-                                    "on m.MPAARatingID = mpaa.MPAARatingID";
+                cmd.CommandText = "select m.MovieId, m.MovieTitle, mpaa.FilmRating, m.ReleaseDate, " +
+                                   "d.LastName, s.StudioName "+
+                                    "from Movies m "+
+                                    "Join Directors d "+
+                                    "on m.DirectorID = d.DirectorID "+
+                                    "Join studios s "+
+                                    "on m.StudioID = s.StudioID "+
+                                    "join MPAARatings mpaa "+
+                                    "on m.MPAARatingID = mpaa.MPAARatingID ";
                 cmd.Connection = cn;
                 cn.Open();
 
@@ -45,16 +46,13 @@ namespace DVDLibrary.DataLayer
         private MovieInfo PopulateMovieInfoFromDataReader(SqlDataReader dr)
         {
             MovieInfo movie = new MovieInfo();
-            Actor famousPerson = new Actor();
 
             movie.MovieId = (int)dr["MovieID"];
             movie.Title = dr["MovieTitle"].ToString();
             movie.MpaaRating = dr["FilmRating"].ToString();
             movie.Director = dr["LastName"].ToString();
             movie.Studio = dr["StudioName"].ToString();
-
-            if (dr["ReleaseDate"] != DBNull.Value)
-                movie.ReleaseDate = (DateTime)dr["ReleaseDate"];
+            movie.ReleaseDate = (int)dr["ReleaseDate"];
 
             return movie;
         }
@@ -66,13 +64,13 @@ namespace DVDLibrary.DataLayer
             using (SqlConnection cn = new SqlConnection(Settings.ConnectionString))
             {
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = "select mb.DateBorrowed, mb.DateReturned, mb.UserNotes, mb.UserRating,"+
-                                    "b.FirstName, b.LastName,m.MovieTitle"+
-                                    "from MovieBorrower mb"+
-                                    "join Borrowers b"+
-                                    "on b.BorrowerID = mb.BorrowerID"+
-                                    "join Movies m"+
-                                    "on m.MovieID = mb.MovieID ";
+                cmd.CommandText = "select mb.DateBorrowed, mb.DateReturned, mb.UserNotes, mb.UserRating, "+
+                                    "b.FirstName, b.LastName,m.MovieTitle "+
+                                    "from MovieBorrower mb "+
+                                    "join Borrowers b "+
+                                    "on b.BorrowerID = mb.BorrowerID "+
+                                    "join Movies m "+
+                                    "on m.MovieID = mb.MovieID";
                 cmd.Connection = cn;
                 cn.Open();
 
@@ -96,8 +94,12 @@ namespace DVDLibrary.DataLayer
             rental.FirstName = dr["FirstName"].ToString();
             rental.LastName = dr["LastName"].ToString();
             rental.Movie.Title = dr["MovieTitle"].ToString();
-            rental.UserNotes = dr["UserNotes"].ToString();
-            rental.UserRating = dr["UserRating"].ToString();// does this need to be an int??? 
+
+            if (dr["UserNotes"] != DBNull.Value)
+                rental.UserNotes = dr["UserNotes"].ToString();
+
+            if (dr["UserRating"] != DBNull.Value)
+                rental.UserRating = (int)dr["UserRating"];
 
 
             if (dr["DateBorrowed"] != DBNull.Value)
