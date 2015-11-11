@@ -39,7 +39,7 @@ namespace DVDLibrary.DataLayer
         {
             MovieInfo movie = new MovieInfo();
 
-            movie.MovieID = (int)dr["MovieID"];
+            //movie.MovieID = (int)dr["MovieID"];
             //movie.Title = dr["Title"].ToString();
             //movie.MPAARating = dr["Rating"].ToString();
             //movie.UserRating = dr["UserRating"].ToString();
@@ -52,5 +52,103 @@ namespace DVDLibrary.DataLayer
 
             return movie;
         }
+
+
+
+        public RentalInfo GetBorrowerByID(int borrowerID)
+        {
+            // processes and returns borrower with  number to identify specific borrower
+
+            RentalInfo borrower = new RentalInfo();
+
+            using (var cn = new SqlConnection(Settings.ConnectionString))
+            {
+                var cmd = new SqlCommand();
+                cmd.CommandText = "select * " +
+                                  " from Borrowers b " +
+                                  "where b.BorrowerID = @BorrowerID";
+
+                cmd.Connection = cn;
+                cmd.Parameters.AddWithValue("@BorrowerID", borrowerID);
+
+                cn.Open();
+
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        borrower = PopulateBorrowerFromDataReader(dr);
+                    }
+                }
+            }
+
+            return borrower;
+        }
+
+
+        private RentalInfo PopulateBorrowerFromDataReader(SqlDataReader dr)
+        {
+            // to save info to the right fields and populate class with borrower
+
+            RentalInfo borrower = new RentalInfo();
+            borrower.BorrowerId = (int)dr["BorrowerID"];
+            borrower.FirstName = dr["FirstName"].ToString();
+            borrower.LastName = dr["LastName"].ToString();
+           
+            return borrower;
+        }
+
+
+        public void RemoveMovieByID(int movieID)
+        {
+            //removes a movie by ID number which will be listed on display or inputed directly or with a delete button with movie title
+
+            using (var cn = new SqlConnection(Settings.ConnectionString))
+            {
+                var cmd = new SqlCommand();
+                cmd.CommandText = "delete Movies " +
+                                  "where MovieID = @MovieID";
+
+                cmd.Connection = cn;
+                cmd.Parameters.AddWithValue("@MovieID", movieID);
+
+                cn.Open();
+
+                cmd.ExecuteNonQuery();
+
+                cn.Close();
+
+
+            }
+            
+        }
+
+
+        public void AddMovie(string movietitle, int mpaaratingID, int directorID, int studioID, int releaseDate)
+        {
+            using (var cn = new SqlConnection(Settings.ConnectionString))
+            {
+                var cmd = new SqlCommand();
+                cmd.CommandText = "insert into Movies (MovieTitle, MPAARatingID, DirectorID, StudioID, ReleaseDate)" +
+                                  "values(@MovieTitle, @MPAARatingID, @DirectorID, @StudioID, @ReleaseDate)";
+
+                cmd.Connection = cn;
+                cmd.Parameters.AddWithValue("@MovieTitle", movietitle);
+                cmd.Parameters.AddWithValue("@MPAARatingID", mpaaratingID);
+                cmd.Parameters.AddWithValue("@DirectorID", directorID);
+                cmd.Parameters.AddWithValue("@StudioID", studioID);
+                cmd.Parameters.AddWithValue("@ReleaseDate", releaseDate);
+
+                cn.Open();
+
+                cmd.ExecuteNonQuery();
+
+                cn.Close();
+
+
+            }
+        }
+
+
     }
 }
