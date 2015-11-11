@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Dapper;
 using DVDLibrary.DataLayer.Config;
 using DVDLibrary.Models;
 
@@ -13,7 +14,7 @@ namespace DVDLibrary.DataLayer
     public class MovieRepo
     {
 
-        public static List<MovieInfo> Movies { get; set; } 
+        public static List<MovieInfo> Movies { get; set; }
         public static List<RentalInfo> Rentals { get; set; }
 
         public List<MovieInfo> GetAllMovieInfo()
@@ -22,13 +23,13 @@ namespace DVDLibrary.DataLayer
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText = "select m.MovieID, m.MovieTitle, mpaa.FilmRating, m.ReleaseDate, " +
-                                   "d.LastName, s.StudioName "+
-                                    "from Movies m "+
-                                    "Join Directors d "+
-                                    "on m.DirectorID = d.DirectorID "+
-                                    "Join studios s "+
-                                    "on m.StudioID = s.StudioID "+
-                                    "join MPAARatings mpaa "+
+                                   "d.LastName, s.StudioName " +
+                                    "from Movies m " +
+                                    "Join Directors d " +
+                                    "on m.DirectorID = d.DirectorID " +
+                                    "Join studios s " +
+                                    "on m.StudioID = s.StudioID " +
+                                    "join MPAARatings mpaa " +
                                     "on m.MPAARatingID = mpaa.MPAARatingID ";
                 cmd.Connection = cn;
                 cn.Open();
@@ -71,31 +72,6 @@ namespace DVDLibrary.DataLayer
             }
 
             return movie;
-        }
-
-        public void AddMovie(string movieTitle, int mpaaRatingID, int directorID, int studioID, int releaseDate)
-        {
-            using (var cn = new SqlConnection(Settings.ConnectionString))
-            {
-                var cmd = new SqlCommand();
-                cmd.CommandText = "insert into Movies (MovieTitle, MPAARatingID, DirectorID, StudioID, ReleaseDate)" +
-                                  "values(@MovieTitle, @MPAARatingID, @DirectorID, @StudioID, @ReleaseDate)";
-
-                cmd.Connection = cn;
-                cmd.Parameters.AddWithValue("@MovieTitle", movieTitle);
-                cmd.Parameters.AddWithValue("@MPAARatingID", mpaaRatingID);
-                cmd.Parameters.AddWithValue("@DirectorID", directorID);
-                cmd.Parameters.AddWithValue("@StudioID", studioID);
-                cmd.Parameters.AddWithValue("@ReleaseDate", releaseDate);
-
-                cn.Open();
-
-                cmd.ExecuteNonQuery();
-
-                cn.Close();
-
-
-            }
         }
 
         public void RemoveMovieByID(int movieID)
@@ -150,6 +126,7 @@ namespace DVDLibrary.DataLayer
         }
 
         public RentalInfo GetBorrowerByID(int borrowerID)
+
         {
             // processes and returns borrower with  number to identify specific borrower
 
@@ -203,6 +180,9 @@ namespace DVDLibrary.DataLayer
             return Rentals;
         }
 
+
+
+
         public List<RentalInfo> CheckOutDvd()
         {
             using (SqlConnection cn = new SqlConnection(Settings.ConnectionString))
@@ -226,6 +206,8 @@ namespace DVDLibrary.DataLayer
 
             return Rentals;
         }
+
+
 
         public List<RentalInfo> CheckInDvd()
         {
@@ -252,6 +234,7 @@ namespace DVDLibrary.DataLayer
         }
 
         private RentalInfo PopulateRentalInfoFromDataReader(SqlDataReader dr)
+
         {
 
             var rental = new RentalInfo();
@@ -311,6 +294,69 @@ namespace DVDLibrary.DataLayer
 
         {
             return new List<Actor>();
+        }
+
+
+        public void AddMovieWithInput(string MovieTitle, string FilmRating, string DFirstName, string DLastName, string StudioName, int ReleaseDate)
+        {
+            using (SqlConnection cn = new SqlConnection(Settings.ConnectionString))
+            {
+                var p = new DynamicParameters();
+                p.Add("@FirstName", DFirstName);
+                p.Add("@LastName", DLastName);
+                p.Add("DirectorID", DbType.Int32, direction: ParameterDirection.Output);
+
+                cn.Execute("InsertDirector", p, commandType: CommandType.StoredProcedure);
+
+                int directorID = p.Get<int>("DirectorID");
+
+
+                Console.Write(" New Director Id = {0}", directorID);
+
+
+                var pn = new DynamicParameters();
+
+                pn.Add("@StudioName", StudioName);
+
+                pn.Add("StudioID", DbType.Int32, direction: ParameterDirection.Output);
+
+                cn.Execute("InsertStudio", pn, commandType: CommandType.StoredProcedure);
+
+
+                var studioID = pn.Get<int>("StudioID");
+
+                Console.Write("New Studio Id = {0}", studioID);
+
+
+                var pns = new DynamicParameters();
+                pns.Add("@FilmRating", FilmRating);
+
+                pns.Add("MPAARatingID", DbType.Int32, direction: ParameterDirection.Output);
+
+                cn.Execute("InsertMPAARatings", pns, commandType: CommandType.StoredProcedure);
+
+                var mpaaratingID = pns.Get<int>("MPAARatingID");
+
+                Console.Write("New MPAARating Id = {0}", mpaaratingID);
+
+
+                var pnsm = new DynamicParameters();
+                pnsm.Add("@MovieTitle", MovieTitle);
+                pnsm.Add("@MPAARatingID", mpaaratingID);
+                pnsm.Add("@DirectorID", directorID);
+                pnsm.Add("@StudioID", studioID);
+                pnsm.Add("@ReleaseDate", ReleaseDate);
+
+                pnsm.Add("MovieID", DbType.Int32, direction: ParameterDirection.Output);
+
+                cn.Execute("InsertMovies", pnsm, commandType: CommandType.StoredProcedure);
+
+                var movieID = pnsm.Get<int>("MovieID");
+
+                Console.Write("New Movie Id = {0}", movieID);
+
+
+            }
         }
     }
 }

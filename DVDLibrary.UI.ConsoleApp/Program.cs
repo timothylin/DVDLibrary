@@ -60,6 +60,7 @@ namespace DVDLibrary.UI.ConsoleApp
 
             //    AddMovie("Star Trek", 5, 4, 1, 2013);
 
+
             //    Console.ReadLine();
 
             //}
@@ -83,7 +84,6 @@ namespace DVDLibrary.UI.ConsoleApp
             //    repo.RemoveMovieByID(movieID);
 
             //}
-
 
             //public static void AddMovie(string movietitle, int mpaaratingID, int directorID, int studioID, int releaseDate)
             //{
