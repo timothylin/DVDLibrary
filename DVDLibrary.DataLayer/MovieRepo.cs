@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Dapper;
 using DVDLibrary.DataLayer.Config;
 using DVDLibrary.Models;
 
@@ -172,34 +173,36 @@ namespace DVDLibrary.DataLayer
         }
 
 
+        //New version that takes into account userinput created at bottom
+
+        //public void AddMovie(string movieTitle, int mpaaratingID, int directorID, int studioID, int releaseDate)
+        //{
+        //    using (var cn = new SqlConnection(Settings.ConnectionString))
+        //    {
+        //        var cmd = new SqlCommand();
+        //        cmd.CommandText = "insert into Movies (MovieTitle, MPAARatingID, DirectorID, StudioID, ReleaseDate)" +
+        //                          "values(@MovieTitle, @MPAARatingID, @DirectorID, @StudioID, @ReleaseDate)";
+
+        //        cmd.Connection = cn;
+        //        cmd.Parameters.AddWithValue("@MovieTitle", movieTitle);
+        //        cmd.Parameters.AddWithValue("@MPAARatingID", mpaaratingID);
+        //        cmd.Parameters.AddWithValue("@DirectorID", directorID);
+        //        cmd.Parameters.AddWithValue("@StudioID", studioID);
+        //        cmd.Parameters.AddWithValue("@ReleaseDate", releaseDate);
+
+        //        cn.Open();
+
+        //        cmd.ExecuteNonQuery();
+
+        //        cn.Close();
 
 
-        public void AddMovie(string movieTitle, int mpaaratingID, int directorID, int studioID, int releaseDate)
-        {
-            using (var cn = new SqlConnection(Settings.ConnectionString))
-            {
-                var cmd = new SqlCommand();
-                cmd.CommandText = "insert into Movies (MovieTitle, MPAARatingID, DirectorID, StudioID, ReleaseDate)" +
-                                  "values(@MovieTitle, @MPAARatingID, @DirectorID, @StudioID, @ReleaseDate)";
-
-                cmd.Connection = cn;
-                cmd.Parameters.AddWithValue("@MovieTitle", movieTitle);
-                cmd.Parameters.AddWithValue("@MPAARatingID", mpaaratingID);
-                cmd.Parameters.AddWithValue("@DirectorID", directorID);
-                cmd.Parameters.AddWithValue("@StudioID", studioID);
-                cmd.Parameters.AddWithValue("@ReleaseDate", releaseDate);
-
-                cn.Open();
-
-                cmd.ExecuteNonQuery();
-
-                cn.Close();
-
-
-            }
-        }
+        //    }
+        //}
 
       
+
+
 
 
         private RentalInfo PopulateRentalInfoFromDataReader(SqlDataReader dr)
@@ -230,6 +233,8 @@ namespace DVDLibrary.DataLayer
         }
 
 
+
+
         public List<RentalInfo> TrackAllDvds()
         {
             using (SqlConnection cn = new SqlConnection(Settings.ConnectionString))
@@ -253,6 +258,9 @@ namespace DVDLibrary.DataLayer
 
             return Rentals;
         }
+
+
+
 
         public List<RentalInfo> CheckOutDvd()
         {
@@ -278,6 +286,8 @@ namespace DVDLibrary.DataLayer
             return Rentals;
         }
 
+
+
         public List<RentalInfo> CheckInDvd()
         {
             using (SqlConnection cn = new SqlConnection(Settings.ConnectionString))
@@ -301,6 +311,8 @@ namespace DVDLibrary.DataLayer
 
             return Rentals;
         }
+
+
 
         public MovieInfo GetSpecificMovie(int movieID)
         {
@@ -329,5 +341,73 @@ namespace DVDLibrary.DataLayer
 
             return movie;
         }
+
+
+
+        public void AddMovieWithInput(string MovieTitle, string FilmRating, string DFirstName, string DLastName, string StudioName, int ReleaseDate)
+        {
+            using (SqlConnection cn = new SqlConnection(Settings.ConnectionString))
+            {
+                var p = new DynamicParameters();
+                p.Add("@FirstName", DFirstName);
+                p.Add("@LastName", DLastName);
+                p.Add("DirectorID", DbType.Int32, direction: ParameterDirection.Output);
+
+                cn.Execute("InsertDirector", p, commandType: CommandType.StoredProcedure);
+
+                int directorID = p.Get<int>("DirectorID");
+
+
+                Console.Write(" New Director Id = {0}", directorID);
+
+
+                var pn = new DynamicParameters();
+
+                pn.Add("@StudioName", StudioName);
+
+                pn.Add("StudioID", DbType.Int32, direction: ParameterDirection.Output);
+
+                cn.Execute("InsertStudio", pn, commandType: CommandType.StoredProcedure);
+
+
+                var studioID = pn.Get<int>("StudioID");
+
+                Console.Write("New Studio Id = {0}", studioID);
+
+
+                var pns = new DynamicParameters();
+                pns.Add("@FilmRating", FilmRating);
+
+                pns.Add("MPAARatingID", DbType.Int32, direction: ParameterDirection.Output);
+
+                cn.Execute("InsertMPAARatings", pns, commandType: CommandType.StoredProcedure);
+
+                var mpaaratingID = pns.Get<int>("MPAARatingID");
+
+                Console.Write("New MPAARating Id = {0}", mpaaratingID);
+
+
+                var pnsm = new DynamicParameters();
+                pnsm.Add("@MovieTitle", MovieTitle);
+                pnsm.Add("@MPAARatingID", mpaaratingID);
+                pnsm.Add("@DirectorID", directorID);
+                pnsm.Add("@StudioID", studioID);
+                pnsm.Add("@ReleaseDate", ReleaseDate);
+
+                pnsm.Add("MovieID", DbType.Int32, direction: ParameterDirection.Output);
+
+                cn.Execute("InsertMovies", pnsm, commandType: CommandType.StoredProcedure);
+
+                var movieID = pnsm.Get<int>("MovieID");
+
+                Console.Write("New Movie Id = {0}", movieID);
+
+
+            }
+        }
+
+
+
+
     }
 }
