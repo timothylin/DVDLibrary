@@ -10,7 +10,7 @@ namespace DVDLibrary.Models
     {
         public string Lastname { get; set; }
         public string Firstname { get; set; }
-        public int ActorID { get; set; }
+        public int ActorId { get; set; }
 
 
     }

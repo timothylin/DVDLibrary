@@ -13,7 +13,7 @@ namespace DVDLibrary.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public MovieInfo Movie { get; set; }
-        public int BorrowerID { get; set; }
+        public int BorrowerId { get; set; }
         public string UserNotes { get; set; }//
         public string UserRating { get; set; }//
 
