@@ -7,9 +7,9 @@ using DVDLibrary.DataLayer;
 
 namespace DVDLibrary.UI.ConsoleApp
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             //MovieRepo repo = new MovieRepo();
 
@@ -20,8 +20,13 @@ namespace DVDLibrary.UI.ConsoleApp
             //    Console.WriteLine(movie);
             //}
 
+            //MovieRepo repo = new MovieRepo();
 
+            //var movie = repo.GetMovieByID(7);
 
+            //Console.WriteLine(movie);
+
+            //Console.ReadLine();
 
             //BorrowerByID(2);
 
@@ -53,41 +58,42 @@ namespace DVDLibrary.UI.ConsoleApp
             //    }
             //}
 
-            AddMovie("Star Trek", 5, 4, 1, 2013);
+            //    AddMovie("Star Trek", 5, 4, 1, 2013);
 
-            Console.ReadLine();
+            //    Console.ReadLine();
+
+            //}
+
+            //public static void BorrowerByID(int id)
+            //{
+            //    MovieRepo repo = new MovieRepo();
+
+            //    var borrower = repo.GetBorrowerByID(id);
+
+            //    Console.WriteLine("{0}, {1} has the borrower id number: {2}", borrower.LastName, borrower.FirstName, borrower.BorrowerID);
+
+
+            //}
+
+
+            //public static void RemoveMovieByID(int movieID)
+            //{
+            //    MovieRepo repo = new MovieRepo();
+
+            //    repo.RemoveMovieByID(movieID);
+
+            //}
+
+
+            //public static void AddMovie(string movietitle, int mpaaratingID, int directorID, int studioID, int releaseDate)
+            //{
+            //    MovieRepo repo = new MovieRepo();
+
+            //    repo.AddMovie( movietitle,  mpaaratingID,  directorID,  studioID,  releaseDate);
+
+            //}
+
 
         }
-
-        public static void BorrowerByID(int id)
-        {
-            MovieRepo repo = new MovieRepo();
-
-            var borrower = repo.GetBorrowerByID(id);
-
-            Console.WriteLine("{0}, {1} has the borrower id number: {2}", borrower.LastName, borrower.FirstName, borrower.BorrowerID);
-            
-
-        }
-
-
-        public static void RemoveMovieByID(int movieID)
-        {
-            MovieRepo repo = new MovieRepo();
-
-            repo.RemoveMovieByID(movieID);
-
-        }
-
-
-        public static void AddMovie(string movietitle, int mpaaratingID, int directorID, int studioID, int releaseDate)
-        {
-            MovieRepo repo = new MovieRepo();
-
-            repo.AddMovie( movietitle,  mpaaratingID,  directorID,  studioID,  releaseDate);
-
-        }
-
-
     }
 }
