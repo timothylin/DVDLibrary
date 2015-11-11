@@ -17,7 +17,7 @@ namespace DVDLibrary.UI.ConsoleApp
 
             foreach (var movie in movies)
             {
-                Console.WriteLine(movie);
+                Console.WriteLine(movie.Title);
             }
 
             Console.ReadLine();
