@@ -301,5 +301,33 @@ namespace DVDLibrary.DataLayer
 
             return Rentals;
         }
+
+        public MovieInfo GetSpecificMovie(int MovieId)
+        {
+            MovieInfo movie = new MovieInfo();
+
+            using (var cn = new SqlConnection(Settings.ConnectionString))
+            {
+                var cmd = new SqlCommand();
+                cmd.CommandText = "select * " +
+                                  " from Movies m" +
+                                  "where m.MovieID = @MovieID";
+
+                cmd.Connection = cn;
+                cmd.Parameters.AddWithValue("@MovieID", MovieId);
+
+                cn.Open();
+
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        movie = PopulateMovieInfoFromDataReader(dr);
+                    }
+                }
+            }
+
+            return movie;
+        }
     }
 }

@@ -1,0 +1,25 @@
+﻿@model List<DVDLibrary.Models.MovieInfo>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>All Movies</h2>
+
+@foreach (var movie in Model)
+{
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row margin-top-10">
+                    <div class="col-md-3">@movie.MovieId</div>
+                    <div class="col-md-3">@movie.Title</div>
+                    <div class="col-md-3">@movie.MpaaRating</div>
+                    <div class="col-md-3">
+                        <button class="btn btn-danger">Details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
