@@ -8,7 +8,7 @@ namespace DVDLibrary.Models
 {
     public class MovieInfo
     {
-        public int MovieId { get; set; }
+        public int MovieID { get; set; }
         public string Title { get; set; }
         public string MpaaRating { get; set; }
         public string Director { get; set; }

@@ -27,7 +27,7 @@ namespace DVDLibrary.DataLayer
             using (SqlConnection cn = new SqlConnection(Settings.ConnectionString))
             {
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = "select m.MovieId, m.MovieTitle, mpaa.FilmRating, m.ReleaseDate, " +
+                cmd.CommandText = "select m.MovieID, m.MovieTitle, mpaa.FilmRating, m.ReleaseDate, " +
                                    "d.LastName, s.StudioName "+
                                     "from Movies m "+
                                     "Join Directors d "+
@@ -55,7 +55,7 @@ namespace DVDLibrary.DataLayer
         {
             var movie = new MovieInfo();
 
-            movie.MovieId = (int)dr["MovieID"];
+            movie.MovieID = (int)dr["MovieID"];
             movie.Title = dr["MovieTitle"].ToString();
             movie.MpaaRating = dr["FilmRating"].ToString();
             movie.Director = dr["LastName"].ToString();
@@ -139,7 +139,7 @@ namespace DVDLibrary.DataLayer
             // to save info to the right fields and populate class with borrower
 
             RentalInfo borrower = new RentalInfo();
-            borrower.BorrowerId = (int)dr["BorrowerID"];
+            borrower.BorrowerID = (int)dr["BorrowerID"];
             borrower.FirstName = dr["FirstName"].ToString();
             borrower.LastName = dr["LastName"].ToString();
            
@@ -174,7 +174,7 @@ namespace DVDLibrary.DataLayer
 
 
 
-        public void AddMovie(string movietitle, int mpaaratingID, int directorID, int studioID, int releaseDate)
+        public void AddMovie(string movieTitle, int mpaaratingID, int directorID, int studioID, int releaseDate)
         {
             using (var cn = new SqlConnection(Settings.ConnectionString))
             {
@@ -183,7 +183,7 @@ namespace DVDLibrary.DataLayer
                                   "values(@MovieTitle, @MPAARatingID, @DirectorID, @StudioID, @ReleaseDate)";
 
                 cmd.Connection = cn;
-                cmd.Parameters.AddWithValue("@MovieTitle", movietitle);
+                cmd.Parameters.AddWithValue("@MovieTitle", movieTitle);
                 cmd.Parameters.AddWithValue("@MPAARatingID", mpaaratingID);
                 cmd.Parameters.AddWithValue("@DirectorID", directorID);
                 cmd.Parameters.AddWithValue("@StudioID", studioID);
@@ -207,7 +207,7 @@ namespace DVDLibrary.DataLayer
 
             var rental = new RentalInfo();
 
-            rental.BorrowerId = (int)dr["BorrowerID"];
+            rental.BorrowerID = (int)dr["BorrowerID"];
             rental.FirstName = dr["FirstName"].ToString();
             rental.LastName = dr["LastName"].ToString();
             rental.Movie = PopulateMovieInfoFromDataReader(dr);
@@ -302,7 +302,7 @@ namespace DVDLibrary.DataLayer
             return Rentals;
         }
 
-        public MovieInfo GetSpecificMovie(int MovieId)
+        public MovieInfo GetSpecificMovie(int movieID)
         {
             MovieInfo movie = new MovieInfo();
 
@@ -314,7 +314,7 @@ namespace DVDLibrary.DataLayer
                                   "where m.MovieID = @MovieID";
 
                 cmd.Connection = cn;
-                cmd.Parameters.AddWithValue("@MovieID", MovieId);
+                cmd.Parameters.AddWithValue("@MovieID", movieID);
 
                 cn.Open();
 
