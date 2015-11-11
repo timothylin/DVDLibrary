@@ -17,7 +17,9 @@ namespace DVDLibrary.Models
         public string UserNotes { get; set; }
         public int UserRating { get; set; }
 
-
-
+        public RentalInfo()
+        {
+            Movie = new MovieInfo();
+        }
     }
 }

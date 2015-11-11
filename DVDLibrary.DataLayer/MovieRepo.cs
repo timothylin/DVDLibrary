@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -12,10 +13,17 @@ namespace DVDLibrary.DataLayer
     public class MovieRepo
     {
 
+        public List<MovieInfo> Movies { get; set; } 
+        public List<RentalInfo> Rentals { get; set; }
+
+        public MovieRepo()
+        {
+            Movies = new List<MovieInfo>();
+            Rentals = new List<RentalInfo>();
+        }
+
         public List<MovieInfo> GetAllMovieInfo()
         {
-            List<MovieInfo> movies = new List<MovieInfo>();
-
             using (SqlConnection cn = new SqlConnection(Settings.ConnectionString))
             {
                 SqlCommand cmd = new SqlCommand();
@@ -35,32 +43,37 @@ namespace DVDLibrary.DataLayer
                 {
                     while (dr.Read())
                     {
-                        movies.Add(PopulateMovieInfoFromDataReader(dr));
+                        Movies.Add(PopulateMovieInfoFromDataReader(dr));
                     }
                 }
             }
 
-            return movies;
+            return Movies;
         }
 
         private MovieInfo PopulateMovieInfoFromDataReader(SqlDataReader dr)
         {
-            MovieInfo movie = new MovieInfo();
+            var movie = new MovieInfo();
 
-            movie.MovieId = (int)dr["MovieID"];
+            movie.MovieId = (int) dr["MovieID"];
             movie.Title = dr["MovieTitle"].ToString();
             movie.MpaaRating = dr["FilmRating"].ToString();
             movie.Director = dr["LastName"].ToString();
             movie.Studio = dr["StudioName"].ToString();
-            movie.ReleaseDate = (int)dr["ReleaseDate"];
+            movie.ReleaseDate = (int) dr["ReleaseDate"];
+            //movie.Director = string.Concat(dr["DirectorFirstName"].ToString(), " ", dr["DirectorLastName"].ToString());
+            movie.Actors = PopulateActorsFromDataReader(dr);
 
             return movie;
         }
 
+        private List<Actor> PopulateActorsFromDataReader(SqlDataReader dr)
+        {
+            return new List<Actor>();
+        }
+
         public List<RentalInfo> GetAllBorrowersInfo()
         {
-            List<RentalInfo> rentals = new List<RentalInfo>();
-
             using (SqlConnection cn = new SqlConnection(Settings.ConnectionString))
             {
                 SqlCommand cmd = new SqlCommand();
@@ -78,22 +91,23 @@ namespace DVDLibrary.DataLayer
                 {
                     while (dr.Read())
                     {
-                        rentals.Add(PopulateRentalInfoFromDataReader(dr));
+                        Rentals.Add(PopulateRentalInfoFromDataReader(dr));
                     }
                 }
             }
 
-            return rentals;
+            return Rentals;
         }
 
         private RentalInfo PopulateRentalInfoFromDataReader(SqlDataReader dr)
         {
-            RentalInfo rental = new RentalInfo();
+
+            var rental = new RentalInfo();
 
             rental.BorrowerId = (int)dr["BorrowerID"];
             rental.FirstName = dr["FirstName"].ToString();
             rental.LastName = dr["LastName"].ToString();
-            rental.Movie.Title = dr["MovieTitle"].ToString();
+            rental.Movie = PopulateMovieInfoFromDataReader(dr);
 
             if (dr["UserNotes"] != DBNull.Value)
                 rental.UserNotes = dr["UserNotes"].ToString();
@@ -103,13 +117,86 @@ namespace DVDLibrary.DataLayer
 
 
             if (dr["DateBorrowed"] != DBNull.Value)
-                rental.RentalDate = (DateTime)dr["RentalDate"];
+                rental.RentalDate = DateTime.Parse(dr["DateBorrowed"].ToString());
 
 
             if (dr["DateReturned"] != DBNull.Value)
-                rental.ReturnDate = (DateTime)dr["DateReturned"];
+                rental.ReturnDate = DateTime.Parse(dr["DateReturned"].ToString());
 
             return rental;
+        }
+
+
+        public List<RentalInfo> TrackAllDvds()
+        {
+            using (SqlConnection cn = new SqlConnection(Settings.ConnectionString))
+            {
+                var cmd = new SqlCommand();
+                cmd.CommandText = "TrackAllDVD";
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Connection = cn;
+
+                cn.Open();
+
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        Rentals.Add(PopulateRentalInfoFromDataReader(dr));
+                    }
+                }
+            }
+
+            return Rentals;
+        }
+
+        public List<RentalInfo> CheckOutDvd()
+        {
+            using (SqlConnection cn = new SqlConnection(Settings.ConnectionString))
+            {
+                var cmd = new SqlCommand();
+                cmd.CommandText = "CheckOutDVD";
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Connection = cn;
+
+                cn.Open();
+
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        Rentals.Add(PopulateRentalInfoFromDataReader(dr));
+                    }
+                }
+            }
+
+            return Rentals;
+        }
+
+        public List<RentalInfo> CheckInDvd()
+        {
+            using (SqlConnection cn = new SqlConnection(Settings.ConnectionString))
+            {
+                var cmd = new SqlCommand();
+                cmd.CommandText = "CheckInDVD";
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Connection = cn;
+
+                cn.Open();
+
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        Rentals.Add(PopulateRentalInfoFromDataReader(dr));
+                    }
+                }
+            }
+
+            return Rentals;
         }
     }
 }

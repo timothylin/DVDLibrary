@@ -14,6 +14,11 @@ namespace DVDLibrary.Models
         public string Director { get; set; }
         public int ReleaseDate { get; set; }
         public string Studio { get; set; }
-        public List<Actor> Actors { get; set; } 
+        public List<Actor> Actors { get; set; }
+
+        public MovieInfo()
+        {
+            Actors = new List<Actor>();
+        }
     }
 }
