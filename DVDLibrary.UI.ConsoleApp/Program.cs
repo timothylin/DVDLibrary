@@ -22,11 +22,15 @@ namespace DVDLibrary.UI.ConsoleApp
 
 
 
+
             //BorrowerByID(2);
 
             //RemoveMovieByID(6);
 
             AddMovie("Star Trek", 5, 4, 1, 2013);
+
+      
+
 
             Console.ReadLine();
 
