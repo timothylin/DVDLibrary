@@ -175,8 +175,13 @@ namespace DVDLibrary.DataLayer
 
             using (var cn = new SqlConnection(Settings.ConnectionString))
             {
+
                 var cmd = new SqlCommand();
-                cmd.CommandText = "delete Movies " +
+                cmd.CommandText = "delete MovieActors " +
+                                  "where MovieID = @MovieID " +
+                                  "delete MovieBorrower " + 
+                                  "where MovieId = @MovieID " +
+                                  "delete Movies " +
                                   "where MovieID = @MovieID";
 
                 cmd.Connection = cn;
@@ -257,15 +262,16 @@ namespace DVDLibrary.DataLayer
             return borrower;
         }
 
-        public List<RentalInfo> TrackAllDvds()
+        public List<RentalInfo> TrackDvdByMovieID(int MovieID)
         {
             using (SqlConnection cn = new SqlConnection(Settings.ConnectionString))
             {
                 var cmd = new SqlCommand();
-                cmd.CommandText = "TrackAllDVD";
+                cmd.CommandText = "TrackDVDByMovieID";
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 cmd.Connection = cn;
+                cmd.Parameters.AddWithValue("@MovieID", MovieID);
 
                 cn.Open();
 

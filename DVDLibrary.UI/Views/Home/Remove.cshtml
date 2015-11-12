@@ -6,10 +6,13 @@
 
 <h2>Remove</h2>
 
+<h2>@Model.Title</h2>
+
 @Model.MovieID
 
-@Model.MpaaRating
-@Model.Director
+@Model.MpaaRating.FilmRating
+@Model.Director.FirstName
+@Model.Director.LastName
 @Model.ReleaseDate
 @foreach (var actor in Model.Actors)
 {
@@ -17,7 +20,7 @@
     @actor.FirstName
     @actor.LastName
 }
-@Model.Studio
+@Model.Studio.StudioName
 
 <p>Are you sure you want to Delete this entry?</p>
 @using (Html.BeginForm("ConfirmDelete", "Home", null, FormMethod.Post))
@@ -25,3 +28,4 @@
     @Html.Hidden("movieID", Model.MovieID)
     <button id="deleteMovie" class="btn btn-danger">Confirm</button>
 }
+<button id="cancel" class="btn btn-primary">Cancel</button>

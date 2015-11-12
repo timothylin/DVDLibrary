@@ -1,0 +1,29 @@
+﻿@model DVDLibrary.Models.RentalInfo
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Check In</h2>
+
+@using (Html.BeginForm("Check In", "Borrower", FormMethod.Post))
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h6>Movie Title: * @Html.ValidationMessageFor(m => m.Movie.Title)</h6>
+                <p>@Html.TextBoxFor(m => m.Movie, new {style = "width:100%", placeholder = "Title"})</p>
+            </div>
+            <div class="col-md-6">
+                <h6>Borrower First Name: * @Html.ValidationMessageFor(m => m.Borrower.FirstName)</h6>
+                <p>@Html.TextBoxFor(m => m.Borrower.FirstName
+                       new {style = "width:100%", placeholder = "First Name"})</p>
+            </div>
+            <div class="col-md-6">
+                <h6>Borrower Last Name: * @Html.ValidationMessageFor(m => m.Borrower.LastName)</h6>
+                <p>@Html.TextBoxFor(m => m.Borrower.LastName
+                       new {style = "width:100%", placeholder = "Last Name"})</p>
+            </div>
+        </div>
+    </div>
+}
