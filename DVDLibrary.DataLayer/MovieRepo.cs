@@ -257,15 +257,16 @@ namespace DVDLibrary.DataLayer
             return borrower;
         }
 
-        public List<RentalInfo> TrackAllDvds()
+        public List<RentalInfo> TrackDvdByMovieID(int MovieID)
         {
             using (SqlConnection cn = new SqlConnection(Settings.ConnectionString))
             {
                 var cmd = new SqlCommand();
-                cmd.CommandText = "TrackAllDVD";
+                cmd.CommandText = "TrackDVDByMovieID";
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 cmd.Connection = cn;
+                cmd.Parameters.AddWithValue("@MovieID", MovieID);
 
                 cn.Open();
 

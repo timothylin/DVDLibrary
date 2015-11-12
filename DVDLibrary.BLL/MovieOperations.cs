@@ -82,10 +82,10 @@ namespace DVDLibrary.BLL
             return _response;
         }
 
-        public Response TrackDvd()
+        public Response TrackDvd(int movieID)
         {
             _response = new Response();
-            _response.Rentals = _repo.TrackAllDvds();
+            _response.Rentals = _repo.TrackDvdByMovieID(movieID);
             return _response;
         }
 
