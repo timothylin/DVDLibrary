@@ -59,9 +59,16 @@ namespace DVDLibrary.DataLayer
             using (var cn = new SqlConnection(Settings.ConnectionString))
             {
                 var cmd = new SqlCommand();
-                cmd.CommandText = "select * " +
-                                  "from Movies m " +
-                                  "where m.MovieID = @MovieID";
+                cmd.CommandText = "select m.MovieID, m.MovieTitle, mpaa.FilmRating, m.ReleaseDate, d.DirectorID, d.FirstName, " +
+                                   "d.LastName, s.StudioName, s.StudioID " +
+                                    "from Movies m " +
+                                    "Join Directors d " +
+                                    "on m.DirectorID = d.DirectorID " +
+                                    "Join studios s " +
+                                    "on m.StudioID = s.StudioID " +
+                                    "join MPAARatings mpaa " +
+                                    "on m.MPAARatingID = mpaa.MPAARatingID " +
+                                    "where m.MovieID = @movieID";
 
                 cmd.Connection = cn;
                 cmd.Parameters.AddWithValue("@MovieID", movieID);
