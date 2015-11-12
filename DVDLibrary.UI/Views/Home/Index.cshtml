@@ -22,7 +22,7 @@
                         <div class="row margin-top-10">
                             <div class="col-md-3">@movie.MovieID</div>
                             <div class="col-md-3">@movie.Title</div>
-                            <div class="col-md-3">@movie.MpaaRating</div>
+                            <div class="col-md-3">@movie.MpaaRating.FilmRating</div>
                             <div class="col-md-3">
                                 @using (Html.BeginForm("Details", "Home", null, FormMethod.Post ))
                                 {
@@ -31,6 +31,7 @@
                                 }
                                 @using (Html.BeginForm("Remove", "Home", null, FormMethod.Post))
                                 {
+                                    @Html.Hidden("movieID", movie.MovieID)
                                     <button id="remove" class="btn btn-primary">Remove</button>
                                 }
                                 

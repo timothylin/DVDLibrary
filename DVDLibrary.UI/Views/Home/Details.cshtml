@@ -9,13 +9,14 @@
 
 @Model.MovieID
 
-@Model.MpaaRating
-@Model.Director
+@Model.MpaaRating.FilmRating
+@Model.Director.FirstName
+@Model.Director.LastName
 @Model.ReleaseDate
 @foreach (var actor in Model.Actors)
 {
     @actor.ActorID
-    @actor.Firstname
-    @actor.Lastname
+    @actor.FirstName
+    @actor.LastName
 }
-@Model.Studio
+@Model.Studio.StudioName

@@ -59,8 +59,8 @@ namespace DVDLibrary.DataLayer
             using (var cn = new SqlConnection(Settings.ConnectionString))
             {
                 var cmd = new SqlCommand();
-                cmd.CommandText = "select m.MovieID, m.MovieTitle, mpaa.FilmRating, m.ReleaseDate, " +
-                                   "d.LastName, s.StudioName " +
+                cmd.CommandText = "select m.MovieID, m.MovieTitle, mpaa.FilmRating, m.ReleaseDate, d.DirectorID, d.FirstName, " +
+                                   "d.LastName, s.StudioName, s.StudioID " +
                                     "from Movies m " +
                                     "Join Directors d " +
                                     "on m.DirectorID = d.DirectorID " +
