@@ -11,7 +11,7 @@ namespace DVDLibrary.BLL
 {
     public class MovieOperations
     {
-        private static MovieRepo _repo;
+        private static MovieRepo _repo = new MovieRepo();
         private Response _response;
 
         public MovieOperations()
@@ -45,13 +45,13 @@ namespace DVDLibrary.BLL
             return _response;
         }
 
-        public Response AddMovie(MovieInfo movieToAdd)
+        public Response AddMovie(string movieTitle, string filmRating, string dFirstName, string dLastName, string studioName, int releaseDate)
         {
             _response = new Response();
             return _response;
         }
 
-        public Response RemoveMovie(MovieInfo movieToRemove)
+        public Response RemoveMovie(int movieID)
         {
             _response = new Response();
             return _response;

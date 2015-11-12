@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DVDLibrary.BLL;
 using DVDLibrary.DataLayer;
 
 namespace DVDLibrary.UI.ConsoleApp
@@ -14,6 +15,22 @@ namespace DVDLibrary.UI.ConsoleApp
             //MovieRepo repo = new MovieRepo();
 
             //var movies = repo.GetAllMovieInfo();
+
+            //MovieOperations ops = new MovieOperations();
+
+            //var response = ops.GetAllMovies();
+
+            //foreach (var movie in response.Movies)
+            //{
+            //    Console.WriteLine("Movie Title: {0}", movie.Title);
+            //    Console.WriteLine("Movie ID: {0}", movie.MovieID);
+            //    Console.WriteLine("MPAA Rating: {0}", movie.MpaaRating);
+            //    Console.WriteLine("Director: {0}", movie.Director);
+            //    Console.WriteLine("Release Date: {0}", movie.ReleaseDate);
+            //    Console.WriteLine("Studio: {0}", movie.Studio);
+            //}
+
+            //Console.ReadLine();
 
             //foreach (var movie in movies)
             //{
