@@ -143,6 +143,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Details.cshtml" />
     <Content Include="Views\Home\Remove.cshtml" />
+    <Content Include="Views\Home\ConfirmDelete.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

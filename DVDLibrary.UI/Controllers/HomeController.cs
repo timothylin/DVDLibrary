@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Services.Description;
 using DVDLibrary.BLL;
 using DVDLibrary.DataLayer;
 
@@ -28,18 +29,23 @@ namespace DVDLibrary.UI.Controllers
             return View("Details", movie.Movie);
         }
 
+        
         public ActionResult Remove(int movieID)
         {
             var ops = new MovieOperations();
-            var movie = ops.RemoveMovie(movieID);
-
+            var movie = ops.GetMovieByID(movieID);
             return View("Remove", movie.Movie);
         }
 
         [HttpPost]
-        public ActionResult Remove(int movieID)
+        public ActionResult ConfirmDelete(int movieID)
         {
-            
+            var ops = new MovieOperations();
+            ops.RemoveMovie(movieID);
+
+            return Content("ConfirmDelete");
         }
+
+
     }
 }
