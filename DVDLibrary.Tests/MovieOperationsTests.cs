@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DVDLibrary.Tests
 {
-    class MovieOperationsTests
+    public class MovieOperationsTests
     {
     }
 }
