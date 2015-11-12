@@ -22,9 +22,19 @@
                         <div class="row margin-top-10">
                             <div class="col-md-3">@movie.MovieID</div>
                             <div class="col-md-3">@movie.Title</div>
-                            <div class="col-md-3">@movie.MpaaRating</div>
+                            <div class="col-md-3">@movie.MpaaRating.FilmRating</div>
                             <div class="col-md-3">
-                                <button class="btn btn-danger">Details</button>
+                                @using (Html.BeginForm("Details", "Home", null, FormMethod.Post ))
+                                {
+                                    @Html.Hidden("movieID", movie.MovieID)
+                                    <button id="details" class="btn btn-danger">Details</button>
+                                }
+                                @using (Html.BeginForm("Remove", "Home", null, FormMethod.Post))
+                                {
+                                    @Html.Hidden("movieID", movie.MovieID)
+                                    <button id="remove" class="btn btn-primary">Remove</button>
+                                }
+                                
                             </div>
                         </div>
                     </div>

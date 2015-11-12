@@ -1,0 +1,22 @@
+﻿@using Dapper
+@model DVDLibrary.Models.MovieInfo
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>@Model.Title</h2>
+
+@Model.MovieID
+
+@Model.MpaaRating.FilmRating
+@Model.Director.FirstName
+@Model.Director.LastName
+@Model.ReleaseDate
+@foreach (var actor in Model.Actors)
+{
+    @actor.ActorID
+    @actor.FirstName
+    @actor.LastName
+}
+@Model.Studio.StudioName
