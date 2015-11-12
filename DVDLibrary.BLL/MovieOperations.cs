@@ -45,15 +45,40 @@ namespace DVDLibrary.BLL
             return _response;
         }
 
-        public Response AddMovie(string movieTitle, string filmRating, string dFirstName, string dLastName, string studioName, int releaseDate)
+        public Response AddMovie(MovieInfo movieToAdd)
         {
             _response = new Response();
+
+            var movie = _repo.AddMovieWithInput(movieToAdd);
+
+            if (movie != null)
+            {
+                _response.Success = true;
+                _response.Movie = movie;
+            }
+            else
+            {
+                _response.Success = false;
+            }
+
             return _response;
         }
 
         public Response RemoveMovie(int movieID)
         {
             _response = new Response();
+
+            var movie = _repo.RemoveMovieByID(movieID);
+
+            if (movie == null)
+            {
+                _response.Success = true;
+            }
+            else
+            {
+                _response.Success = false;
+            }
+
             return _response;
         }
 
@@ -75,12 +100,6 @@ namespace DVDLibrary.BLL
         {
             _response = new Response();
             _response.Rentals = _repo.CheckOutDvd();
-            return _response;
-        }
-
-        public Response SearchByTitle(string title)
-        {
-            _response = new Response();
             return _response;
         }
 
