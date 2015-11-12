@@ -10,10 +10,8 @@ namespace DVDLibrary.Models
     {
         public DateTime? RentalDate { get; set; }
         public DateTime? ReturnDate { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
         public MovieInfo Movie { get; set; }
-        public int BorrowerID { get; set; }
+        public Borrower Borrower { get; set; }
         public string UserNotes { get; set; }
         public int UserRating { get; set; }
 

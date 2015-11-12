@@ -10,10 +10,10 @@ namespace DVDLibrary.Models
     {
         public int MovieID { get; set; }
         public string Title { get; set; }
-        public string MpaaRating { get; set; }
-        public string Director { get; set; }
+        public MpaaRating MpaaRating { get; set; }
+        public Director Director { get; set; }
         public int ReleaseDate { get; set; }
-        public string Studio { get; set; }
+        public Studio Studio { get; set; }
         public List<Actor> Actors { get; set; }
 
         public MovieInfo()
