@@ -127,5 +127,19 @@ namespace DVDLibrary.BLL
 
             return _response;
         }
+
+        public bool ConfirmDelete(int movieID)
+        {
+            var movie = GetMovieByID(movieID);
+
+            if (movie.Success)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
