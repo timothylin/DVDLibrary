@@ -18,6 +18,7 @@ namespace DVDLibrary.Models
         public RentalInfo()
         {
             Movie = new MovieInfo();
+            Borrower = new Borrower();
         }
     }
 }

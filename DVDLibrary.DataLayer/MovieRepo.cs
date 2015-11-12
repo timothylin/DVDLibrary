@@ -29,7 +29,7 @@ namespace DVDLibrary.DataLayer
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText = "select m.MovieID, m.MovieTitle, mpaa.FilmRating, m.ReleaseDate, " +
-                                   "d.LastName, s.StudioName " +
+                                   "d.DirectorID, d.FirstName, d.LastName, s.StudioID, s.StudioName " +
                                     "from Movies m " +
                                     "Join Directors d " +
                                     "on m.DirectorID = d.DirectorID " +
@@ -85,8 +85,8 @@ namespace DVDLibrary.DataLayer
             using (SqlConnection cn = new SqlConnection(Settings.ConnectionString))
             {
                 var p = new DynamicParameters();
-                p.Add("@FirstName", dFirstName);
-                p.Add("@LastName", dLastName);
+                p.Add("@FirstName", movie.Director.FirstName);
+                p.Add("@LastName", movie.Director.LastName);
                 p.Add("DirectorID", DbType.Int32, direction: ParameterDirection.Output);
 
                 cn.Execute("InsertDirector", p, commandType: CommandType.StoredProcedure);
@@ -99,7 +99,7 @@ namespace DVDLibrary.DataLayer
 
                 var pn = new DynamicParameters();
 
-                pn.Add("@StudioName", studioName);
+                pn.Add("@StudioName", movie.Studio.StudioName);
 
                 pn.Add("StudioID", DbType.Int32, direction: ParameterDirection.Output);
 
@@ -112,7 +112,7 @@ namespace DVDLibrary.DataLayer
 
 
                 var pns = new DynamicParameters();
-                pns.Add("@FilmRating", filmRating);
+                pns.Add("@FilmRating", movie.MpaaRating.FilmRating);
 
                 pns.Add("MPAARatingID", DbType.Int32, direction: ParameterDirection.Output);
 
@@ -124,11 +124,11 @@ namespace DVDLibrary.DataLayer
 
 
                 var pnsm = new DynamicParameters();
-                pnsm.Add("@MovieTitle", movieTitle);
+                pnsm.Add("@MovieTitle", movie.Title);
                 pnsm.Add("@MPAARatingID", mpaaRatingID);
                 pnsm.Add("@DirectorID", directorID);
                 pnsm.Add("@StudioID", studioID);
-                pnsm.Add("@ReleaseDate", releaseDate);
+                pnsm.Add("@ReleaseDate", movie.ReleaseDate);
 
                 pnsm.Add("MovieID", DbType.Int32, direction: ParameterDirection.Output);
 
@@ -138,6 +138,25 @@ namespace DVDLibrary.DataLayer
 
                 Console.Write("New Movie Id = {0}", movieID);
 
+                var pa = new DynamicParameters();
+
+                foreach (var actor in movie.Actors)
+                {
+                    pa.Add("@FirstName", actor.FirstName);
+                    pa.Add("@LastName", actor.LastName);
+                }
+
+                pa.Add("ActorID", DbType.Int32, direction: ParameterDirection.Output);
+
+                cn.Execute("InsertActor", pa, commandType: CommandType.StoredProcedure);
+
+                var actorID = pa.Get<int>("ActorID");
+
+                var pma = new DynamicParameters();
+                pma.Add("@MovieID", movieID);
+                pma.Add("@ActorID", actorID);
+
+                cn.Execute("InsertMovieActors", pnsm, commandType: CommandType.StoredProcedure);
 
                 return GetMovieByID(movieID);
             }
@@ -309,9 +328,9 @@ namespace DVDLibrary.DataLayer
 
             var rental = new RentalInfo();
 
-            rental.BorrowerID = (int)dr["BorrowerID"];
-            rental.FirstName = dr["FirstName"].ToString();
-            rental.LastName = dr["LastName"].ToString();
+            rental.Borrower.BorrowerID = (int)dr["BorrowerID"];
+            rental.Borrower.FirstName = dr["FirstName"].ToString();
+            rental.Borrower.LastName = dr["LastName"].ToString();
             rental.Movie = PopulateMovieInfoFromDataReader(dr);
 
             if (dr["UserNotes"] != DBNull.Value)
@@ -336,9 +355,9 @@ namespace DVDLibrary.DataLayer
             // to save info to the right fields and populate class with borrower
 
             RentalInfo borrower = new RentalInfo();
-            borrower.BorrowerID = (int)dr["BorrowerID"];
-            borrower.FirstName = dr["FirstName"].ToString();
-            borrower.LastName = dr["LastName"].ToString();
+            borrower.Borrower.BorrowerID = (int)dr["BorrowerID"];
+            borrower.Borrower.FirstName = dr["FirstName"].ToString();
+            borrower.Borrower.LastName = dr["LastName"].ToString();
 
             return borrower;
         }
@@ -349,21 +368,48 @@ namespace DVDLibrary.DataLayer
 
             movie.MovieID = (int)dr["MovieID"];
             movie.Title = dr["MovieTitle"].ToString();
-            movie.MpaaRating = dr["FilmRating"].ToString();
-            movie.Director = dr["LastName"].ToString();
-            movie.Studio = dr["StudioName"].ToString();
+            movie.MpaaRating.FilmRating = dr["FilmRating"].ToString();
+            movie.Director.DirectorID = (int)dr["DirectorID"];
+            movie.Director.FirstName = dr["FirstName"].ToString();
+            movie.Director.LastName = dr["LastName"].ToString();
+            movie.Studio.StudioID = (int) dr["StudioID"];
+            movie.Studio.StudioName = dr["StudioName"].ToString();
             movie.ReleaseDate = (int)dr["ReleaseDate"];
-            //movie.Director = string.Concat(dr["DirectorFirstName"].ToString(), " ", dr["DirectorLastName"].ToString());
-            movie.Actors = PopulateActorsFromDataReader(dr);
+            movie.Actors = GetListOfActorsByMovieID(movie.MovieID);
 
 
             return movie;
         }
 
-        private List<Actor> PopulateActorsFromDataReader(SqlDataReader dr)
+        private List<Actor> GetListOfActorsByMovieID(int movieID)
+        {
+            List<Actor> actors = new List<Actor>();
+
+            using (SqlConnection cn = new SqlConnection(Settings.ConnectionString))
+            {
+
+                var p = new DynamicParameters();
+                p.Add("@MovieID", movieID);
+                actors = cn.Query<Actor>("GetActorsByMovieID", p, commandType: CommandType.StoredProcedure).ToList();
+
+            }
+
+            return actors;
+        }
+
+        private List<Actor> GetAllActors()
 
         {
-            return new List<Actor>();
+
+            List<Actor> actors = new List<Actor>();
+
+            using (SqlConnection cn = new SqlConnection(Settings.ConnectionString))
+            {
+                actors = cn.Query<Actor>("select * from Actors").ToList();
+
+            }
+
+            return actors;
         }
     }
 }

@@ -19,6 +19,9 @@ namespace DVDLibrary.Models
         public MovieInfo()
         {
             Actors = new List<Actor>();
+            MpaaRating = new MpaaRating();
+            Director = new Director();
+            Studio = new Studio();
         }
     }
 }
