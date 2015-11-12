@@ -17,5 +17,19 @@ namespace DVDLibrary.UI.Controllers
             var movies = ops.GetAllMovies();
             return View(movies.Movies);
         }
+
+        [HttpPost]
+        public ActionResult Details(int movieID)
+        {
+            var ops = new MovieOperations();
+            var movie = ops.GetMovieByID(movieID);
+
+            return View("Details", movie.Movie);
+        }
+
+        //public ActionResult Remove()
+        //{
+            
+        //}
     }
 }
