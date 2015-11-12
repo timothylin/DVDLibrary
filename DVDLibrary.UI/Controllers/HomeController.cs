@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DVDLibrary.BLL;
 using DVDLibrary.DataLayer;
 
 namespace DVDLibrary.UI.Controllers
@@ -12,9 +13,9 @@ namespace DVDLibrary.UI.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            var repo = new MovieRepo();
-            var movies = repo.GetAllMovieInfo();
-            return View(movies);
+            var ops = new MovieOperations();
+            var movies = ops.GetAllMovies();
+            return View(movies.Movies);
         }
     }
 }
