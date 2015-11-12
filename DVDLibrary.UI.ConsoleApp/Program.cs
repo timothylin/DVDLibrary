@@ -12,6 +12,30 @@ namespace DVDLibrary.UI.ConsoleApp
     {
         private static void Main(string[] args)
         {
+            var repo = new MovieRepo();
+
+            var movies = repo.GetAllMovieInfo();
+
+            foreach (var movie in movies)
+            {
+                Console.WriteLine("Movie Title: {0}", movie.Title);
+                Console.WriteLine("Movie ID: {0}", movie.MovieID);
+                Console.WriteLine("MPAA Rating: {0}", movie.MpaaRating.FilmRating);
+                Console.WriteLine("Director: {0}", movie.Director.LastName);
+                Console.WriteLine("Release Date: {0}", movie.ReleaseDate);
+                Console.WriteLine("Studio: {0}", movie.Studio.StudioName);
+
+                foreach (var actor in movie.Actors)
+                {
+                    Console.WriteLine("Actor ID: {0}", actor.ActorID);
+                    Console.WriteLine("Actor First Name: {0}", actor.FirstName);
+                    Console.WriteLine("Actor Last Name: {0}", actor.LastName);
+                }
+
+            }
+
+
+            Console.ReadLine();
             //MovieRepo repo = new MovieRepo();
 
             //var movies = repo.GetAllMovieInfo();
@@ -70,8 +94,8 @@ namespace DVDLibrary.UI.ConsoleApp
             //    foreach (var actor in rental.Movie.Actors)
             //    {
             //        Console.WriteLine("Actor ID: {0}", actor.ActorID);
-            //        Console.WriteLine("Actor First Name: {0}", actor.Firstname);
-            //        Console.WriteLine("Actor Last Name: {0}", actor.Lastname);
+            //        Console.WriteLine("Actor First Name: {0}", actor.FirstName);
+            //        Console.WriteLine("Actor Last Name: {0}", actor.LastName);
             //    }
             //}
 
