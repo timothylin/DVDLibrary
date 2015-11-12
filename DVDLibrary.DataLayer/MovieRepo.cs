@@ -87,7 +87,7 @@ namespace DVDLibrary.DataLayer
             return movie;
         }
 
-        public MovieInfo AddMovieWithInput(string movieTitle, string filmRating, string dFirstName, string dLastName, string studioName, int releaseDate)
+        public MovieInfo AddMovieWithInput(MovieInfo movie)
         {
             using (SqlConnection cn = new SqlConnection(Settings.ConnectionString))
             {
