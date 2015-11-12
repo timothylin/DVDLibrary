@@ -163,7 +163,7 @@ namespace DVDLibrary.DataLayer
                 pma.Add("@MovieID", movieID);
                 pma.Add("@ActorID", actorID);
 
-                cn.Execute("InsertMovieActors", pnsm, commandType: CommandType.StoredProcedure);
+                cn.Execute("InsertMovieActors", pma, commandType: CommandType.StoredProcedure);
 
                 return GetMovieByID(movieID);
             }
@@ -199,13 +199,18 @@ namespace DVDLibrary.DataLayer
             using (SqlConnection cn = new SqlConnection(Settings.ConnectionString))
             {
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = "select mb.DateBorrowed, mb.DateReturned, mb.UserNotes, mb.UserRating, " +
-                                    "b.FirstName, b.LastName,m.MovieTitle " +
-                                    "from MovieBorrower mb " +
-                                    "join Borrowers b " +
-                                    "on b.BorrowerID = mb.BorrowerID " +
-                                    "join Movies m " +
-                                    "on m.MovieID = mb.MovieID";
+                cmd.CommandText = "select mb.DateBorrowed, mb.DateReturned, mb.UserNotes, mb.UserRating,b.FirstName, b.LastName,m.MovieTitle , b.borrowerID, m.movieID, mp.filmrating , d.directorid, m.studioID, s.studioname, m.releasedate   " +
+                                  "from MovieBorrower mb " +
+                                  "inner join Borrowers b " +
+                                  "on b.BorrowerID = mb.BorrowerID " +
+                                  "join Movies m " +
+                                  "on m.MovieID = mb.MovieID " +
+                                  "join mpaaratings mp " +
+                                  "on m.mpaaratingid = mp.mpaaratingid " +
+                                  "join Directors d " +
+                                  "on m.directorid = d.directorid " +
+                                  "join studios s " +
+                                  "on m.studioid = s.studioid";
                 cmd.Connection = cn;
 
                 cn.Open();
