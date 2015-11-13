@@ -1,11 +1,7 @@
 USE [DVDLibrary]
 GO
 
-/****** Object:  StoredProcedure [dbo].[TrackDVDByMovieID]    Script Date: 11/13/2015 3:02:47 PM ******/
-DROP PROCEDURE [dbo].[TrackDVDByMovieID]
-GO
-
-/****** Object:  StoredProcedure [dbo].[TrackDVDByMovieID]    Script Date: 11/13/2015 3:02:47 PM ******/
+/****** Object:  StoredProcedure [dbo].[TrackDVDByMovieID]    Script Date: 11/13/2015 3:08:36 PM ******/
 SET ANSI_NULLS ON
 GO
 
