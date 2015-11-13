@@ -18,12 +18,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Timothy Kim Grand Library", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Apocolypse Rental", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("All Movies", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Check In", "CheckIn", "Home")</li>
+                    <li>@Html.ActionLink("Check In", "CheckIn", "Borrower")</li>
                     <li>@Html.ActionLink("Check Out", "CheckOut", "Home")</li>
                     <li>@Html.ActionLink("Add", "Add", "Home")</li>
                     <li>@Html.ActionLink("Track", "Track", "Home")</li>
@@ -46,13 +46,13 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Apocolypse Rental</p>
         </footer>
     </div>
 
     <script src="~/Scripts/jquery-2.1.4.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script type="text/javascript" src="~/Scripts/jquery.hideseek.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/myScripts.js"></script>
+    <script type="text/javascript" src="~/Scripts/app/search.js"></script>
 </body>
 </html>

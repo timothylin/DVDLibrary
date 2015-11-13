@@ -103,44 +103,75 @@ namespace DVDLibrary.Tests
         }
 
 
+        //[Test]
+        //public void GetAllBorrowersInfo()
+        //{
+
+        //    List<RentalInfo> rent = new List<RentalInfo>();
+        //    RentalInfo rental = new RentalInfo();
+
+        //    rental.RentalDate = DateTime.Parse("2015-02-01");
+        //    rental.ReturnDate = DateTime.Parse("2015-03-30");
+        //    rental.UserRating = 3;
+        //    rental.Borrower.BorrowerID = 2;
+        //    //rental.UserNotes = "good movie";
+        //    rental.Borrower.FirstName = "Jim";
+        //    rental.Borrower.LastName = "Shaw";
+        //    rental.Movie.Title = "Brave Heart";
+        //    rental.Movie.MovieID = 2;
+        //    rental.Movie.MpaaRating.FilmRating = "PG";
+        //    rental.Movie.Director.DirectorID = 2;
+        //    rental.Movie.Director.FirstName = "Ron";
+        //    rental.Movie.Director.LastName = "Howard";
+        //    rental.Movie.Studio.StudioID = 2;
+        //    rental.Movie.Studio.StudioName = "Universal";
+        //    rental.Movie.ReleaseDate = 2014;
+
+
+        //    rent.Add(rental);
+
+        //    List<RentalInfo> movie = _repo.GetAllBorrowersInfo();
+
+        //    var movieActual = movie.FirstOrDefault(m => m.Movie.MovieID == 2);
+
+        //    var movieExpected = rent.FirstOrDefault(m => m.Movie.MovieID == 2);
+
+        //    var actual = new JavaScriptSerializer().Serialize(movieActual);
+        //    var expected = new JavaScriptSerializer().Serialize(movieExpected);
+
+
+        //    Assert.AreEqual(expected, actual);
+        //}
+
         [Test]
-        public void GetAllBorrowersInfo()
+        public void GetAllActors()
         {
+            List<Actor> movieinfo = _repo.GetAllActors();
 
-            List<RentalInfo> rent = new List<RentalInfo>();
-            RentalInfo rental = new RentalInfo();
-
-            rental.RentalDate = DateTime.Parse("2013/3/25");
-            //rental.ReturnDate = DateTime.Parse("03/30/2015");
-            rental.UserRating = 3;
-            rental.Borrower.BorrowerID = 2;
-            //rental.UserNotes = "good movie";
-            rental.Borrower.FirstName = "Chary";
-            rental.Borrower.LastName = "Gurney";
-            rental.Movie.Title = "Brave Heart";
-            rental.Movie.MovieID = 2;
-            rental.Movie.MpaaRating.FilmRating = "PG";
-            rental.Movie.Director.DirectorID = 2;
-            rental.Movie.Director.FirstName = "Ron";
-            rental.Movie.Director.LastName = "Howard";
-            rental.Movie.Studio.StudioID = 2;
-            rental.Movie.Studio.StudioName = "Universal";
-            rental.Movie.ReleaseDate = 2014;
-
-
-            rent.Add(rental);
-
-            List<RentalInfo> movie = _repo.GetAllBorrowersInfo();
-
-            var movieActual = movie.FirstOrDefault(m => m.Movie.MovieID == 2);
-
-            var movieExpected = rent.FirstOrDefault(m => m.Movie.MovieID == 2);
-
-            var actual = new JavaScriptSerializer().Serialize(movieActual);
-            var expected = new JavaScriptSerializer().Serialize(movieExpected);
-
-
-            Assert.AreEqual(expected, actual);
+            Assert.AreEqual(1, movieinfo.FirstOrDefault(m => m.ActorID == 1).ActorID);
         }
+
+
+        [Test]
+        public void GetListOfActorsByMovieID()
+        {
+            List<Actor> actors = _repo.GetListOfActorsByMovieID(2);
+
+            Assert.AreEqual(2, actors.FirstOrDefault(m => m.ActorID == 2).ActorID);
+
+        }
+
+
+        [Test]
+        public void TrackDvdByMovieID()
+        {
+            List<RentalInfo> movie = _repo.TrackDvdByMovieID(2);
+
+            Assert.AreEqual(2, movie.FirstOrDefault(m => m.Movie.MovieID == 2).Movie.MovieID);
+        }
+
+
+
+
     }
 }
