@@ -340,7 +340,7 @@ namespace DVDLibrary.DataLayer
             return Rentals;
         }
 
-        private List<Actor> GetListOfActorsByMovieID(int movieID)
+        public List<Actor> GetListOfActorsByMovieID(int movieID)
         {
             List<Actor> actors = new List<Actor>();
 
