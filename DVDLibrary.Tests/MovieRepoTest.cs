@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Configuration;
+using System.Web.Script.Serialization;
 using DVDLibrary.DataLayer;
 using DVDLibrary.Models;
 using NUnit.Framework;
@@ -12,17 +14,22 @@ namespace DVDLibrary.Tests
     [TestFixture]
     public class MovieRepoTest
     {
-        private MovieRepo repo;
 
+        private MovieRepo _repo { get; set; }
+
+        [SetUp]
+        public void SetUp()
+        {
+            _repo = new MovieRepo();
+        }
 
         [Test]
         public void GetAllMovieTest()
         {
-            repo = new MovieRepo();
 
-            List<MovieInfo> movieinfo = repo.GetAllMovieInfo();
+            List<MovieInfo> movieinfo = _repo.GetAllMovieInfo();
 
-            Assert.AreEqual(1, movieinfo.FirstOrDefault(m=>m.MovieID == 1).MovieID);
+            Assert.AreEqual(1, movieinfo.FirstOrDefault(m => m.MovieID == 1).MovieID);
 
 
         }
@@ -30,9 +37,8 @@ namespace DVDLibrary.Tests
         [Test]
         public void GetMovieByID()
         {
-            repo = new MovieRepo();
 
-            MovieInfo movie = repo.GetMovieByID(1);
+            MovieInfo movie = _repo.GetMovieByID(1);
 
             Assert.AreEqual(1, movie.MovieID);
         }
@@ -40,11 +46,10 @@ namespace DVDLibrary.Tests
         [Test]
         public void AddMovieWithInput()
         {
-            repo = new MovieRepo();
-            List<Actor> actors =  new List<Actor>();
+            List<Actor> actors = new List<Actor>();
             Director director = new Director();
             Studio studio = new Studio();
-            
+
             var movie = new MovieInfo();
 
             //movie.MovieID = 20;
@@ -52,11 +57,11 @@ namespace DVDLibrary.Tests
             movie.Title = "Inception";
 
             var actor = new Actor();
-                //a.ActorID = 10;
-                actor.FirstName = "Will";
-                actor.LastName = "Smith";
-                
-           actors.Add(actor);
+            //a.ActorID = 10;
+            actor.FirstName = "Will";
+            actor.LastName = "Smith";
+
+            actors.Add(actor);
 
             movie.Actors = actors;
             //movie.Director.DirectorID = 10;
@@ -65,12 +70,16 @@ namespace DVDLibrary.Tests
             movie.ReleaseDate = 2002;
             //movie.Studio.StudioID = 10;
             movie.Studio.StudioName = "Robot";
-            
-                      
-            MovieInfo movieinfo = repo.AddMovieWithInput(movie);
 
 
-            Assert.AreEqual("Inception", movieinfo.Title);
+            MovieInfo movieinfo = _repo.AddMovieWithInput(movie);
+            var movieReturned = _repo.GetMovieByID(movieinfo.MovieID);
+
+            var actual = new JavaScriptSerializer().Serialize(movieReturned);
+            var expected = new JavaScriptSerializer().Serialize(movieinfo);
+
+            Assert.AreEqual(expected, actual);
+            //Assert.AreEqual("Inception", movieinfo.Title);
 
         }
 
@@ -78,9 +87,8 @@ namespace DVDLibrary.Tests
         [Test]
         public void RemoveMovieByID()
         {
-            repo = new MovieRepo();
 
-            MovieInfo movieinfo = repo.RemoveMovieByID(18);
+            MovieInfo movieinfo = _repo.RemoveMovieByID(18);
 
             Assert.AreEqual(0, movieinfo.MovieID);
         }
@@ -89,8 +97,7 @@ namespace DVDLibrary.Tests
         [Test]
         public void GetBorrowerByID()
         {
-            repo = new MovieRepo();
-            RentalInfo borrower = repo.GetBorrowerByID(5);
+            RentalInfo borrower = _repo.GetBorrowerByID(5);
 
             Assert.AreEqual("Victor", borrower.Borrower.FirstName);
         }
@@ -100,21 +107,22 @@ namespace DVDLibrary.Tests
         public void GetAllBorrowersInfo()
         {
 
-            repo = new MovieRepo();
-            List<RentalInfo> rent =new List<RentalInfo>();
-          RentalInfo rental = new RentalInfo();
+            List<RentalInfo> rent = new List<RentalInfo>();
+            RentalInfo rental = new RentalInfo();
 
-                rental.RentalDate = DateTime.Parse("02/01/2015");
-            rental.ReturnDate = DateTime.Parse("03/30/2015");
-            rental.UserRating= 5;
-            rental.Borrower.BorrowerID = 1;
-            rental.UserNotes = "good movie";
-            rental.Borrower.FirstName = "Jim";
-            rental.Borrower.LastName = "Shaw";
+            rental.RentalDate = DateTime.Parse("2013/3/25");
+            //rental.ReturnDate = DateTime.Parse("03/30/2015");
+            rental.UserRating = 3;
+            rental.Borrower.BorrowerID = 2;
+            //rental.UserNotes = "good movie";
+            rental.Borrower.FirstName = "Chary";
+            rental.Borrower.LastName = "Gurney";
             rental.Movie.Title = "Brave Heart";
             rental.Movie.MovieID = 2;
             rental.Movie.MpaaRating.FilmRating = "PG";
             rental.Movie.Director.DirectorID = 2;
+            rental.Movie.Director.FirstName = "Ron";
+            rental.Movie.Director.LastName = "Howard";
             rental.Movie.Studio.StudioID = 2;
             rental.Movie.Studio.StudioName = "Universal";
             rental.Movie.ReleaseDate = 2014;
@@ -122,12 +130,17 @@ namespace DVDLibrary.Tests
 
             rent.Add(rental);
 
-            List<RentalInfo> movie = repo.GetAllBorrowersInfo();
+            List<RentalInfo> movie = _repo.GetAllBorrowersInfo();
 
-            Assert.AreEqual(rent.Select(m=> m.Movie.MovieID ==2), movie.Select(m => m.Movie.MovieID == 2));
+            var movieActual = movie.FirstOrDefault(m => m.Movie.MovieID == 2);
+
+            var movieExpected = rent.FirstOrDefault(m => m.Movie.MovieID == 2);
+
+            var actual = new JavaScriptSerializer().Serialize(movieActual);
+            var expected = new JavaScriptSerializer().Serialize(movieExpected);
+
+
+            Assert.AreEqual(expected, actual);
         }
-
-
-
     }
 }

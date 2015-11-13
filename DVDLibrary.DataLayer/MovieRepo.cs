@@ -204,7 +204,7 @@ namespace DVDLibrary.DataLayer
             using (SqlConnection cn = new SqlConnection(Settings.ConnectionString))
             {
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = "select mb.DateBorrowed, mb.DateReturned, mb.UserNotes, mb.UserRating,b.FirstName, b.LastName,m.MovieTitle , b.borrowerID, m.movieID, mp.filmrating , d.directorid, m.studioID, s.studioname, m.releasedate   " +
+                cmd.CommandText = "select mb.DateBorrowed, mb.DateReturned, mb.UserNotes, mb.UserRating, b.FirstName, b.LastName,m.MovieTitle , b.borrowerID, " + "m.movieID, mp.filmrating , d.directorid, d.FirstName, d.LastName, m.studioID, s.studioname, m.releasedate   " +
                                   "from MovieBorrower mb " +
                                   "inner join Borrowers b " +
                                   "on b.BorrowerID = mb.BorrowerID " +
