@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using DVDLibrary.BLL;
@@ -14,23 +15,25 @@ namespace DVDLibrary.UI.ConsoleApp
         {
             var repo = new MovieRepo();
 
-            var movies = repo.GetAllMovieInfo();
+            var rentals = repo.GetAllBorrowersInfo();
 
-            foreach (var movie in movies)
+            foreach (var rental in rentals)
             {
-                Console.WriteLine("Movie Title: {0}", movie.Title);
-                Console.WriteLine("Movie ID: {0}", movie.MovieID);
-                Console.WriteLine("MPAA Rating: {0}", movie.MpaaRating.FilmRating);
-                Console.WriteLine("Director: {0}", movie.Director.LastName);
-                Console.WriteLine("Release Date: {0}", movie.ReleaseDate);
-                Console.WriteLine("Studio: {0}", movie.Studio.StudioName);
+                Console.WriteLine("Movie Title: {0}", rental.Movie.Title);
+                //Console.WriteLine("Movie ID: {0}", rental.MovieID);
+                //Console.WriteLine("MPAA Rating: {0}", rental.MpaaRating.FilmRating);
 
-                foreach (var actor in movie.Actors)
-                {
-                    Console.WriteLine("Actor ID: {0}", actor.ActorID);
-                    Console.WriteLine("Actor First Name: {0}", actor.FirstName);
-                    Console.WriteLine("Actor Last Name: {0}", actor.LastName);
-                }
+                Console.WriteLine("Director: {0} {1}", rental.Movie.Director.FirstName, rental.Movie.Director.LastName);
+                Console.WriteLine("Borrower: {0} {1}", rental.Borrower.FirstName, rental.Borrower.LastName);
+                //Console.WriteLine("Release Date: {0}", rental.ReleaseDate);
+                //Console.WriteLine("Studio: {0}", rental.Studio.StudioName);
+
+                //foreach (var actor in rental.Actors)
+                //{
+                //    Console.WriteLine("Actor ID: {0}", actor.ActorID);
+                //    Console.WriteLine("Actor First Name: {0}", actor.FirstName);
+                //    Console.WriteLine("Actor Last Name: {0}", actor.LastName);
+                //}
 
             }
 

@@ -1,12 +1,17 @@
 USE [DVDLibrary]
 GO
 
-/****** Object:  StoredProcedure [dbo].[TrackDVDByMovieID]    Script Date: 11/12/2015 5:12:27 PM ******/
+/****** Object:  StoredProcedure [dbo].[TrackDVDByMovieID]    Script Date: 11/13/2015 3:02:47 PM ******/
+DROP PROCEDURE [dbo].[TrackDVDByMovieID]
+GO
+
+/****** Object:  StoredProcedure [dbo].[TrackDVDByMovieID]    Script Date: 11/13/2015 3:02:47 PM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 CREATE procedure [dbo].[TrackDVDByMovieID] (
 	@MovieID int 
@@ -14,9 +19,9 @@ CREATE procedure [dbo].[TrackDVDByMovieID] (
 as
 
 Begin
-	select m.MovieID, b.BorrowerID, b.FirstName, b.LastName, mb.DateBorrowed,
+	select m.MovieID, b.BorrowerID, b.FirstName as bFirstName, b.LastName as bLastName, mb.DateBorrowed,
 	mb.DateReturned, mb.UserRating, mb.UserNotes, m.MovieTitle, m.ReleaseDate,
-	mpaa.FilmRating, d.FirstName, d.LastName, s.StudioName
+	mpaa.FilmRating, d.DirectorID, d.FirstName as dFirstName, d.LastName as dLastName, s.StudioName
 		from MovieBorrower mb
 		inner join Movies m
 		on mb.MovieID = m.MovieID
@@ -31,6 +36,7 @@ Begin
 		where m.MovieID = @MovieID
 
 end
+
 
 GO
 

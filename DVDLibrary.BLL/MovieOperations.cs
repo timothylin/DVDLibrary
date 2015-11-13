@@ -89,19 +89,19 @@ namespace DVDLibrary.BLL
             return _response;
         }
 
-        public Response CheckIn()
-        {
-            _response = new Response();
-            _response.Rentals = _repo.CheckInDvd();
-            return _response;
-        }
+        //public Response CheckIn()
+        //{
+        //    _response = new Response();
+        //    _response.Rentals = _repo.CheckInDvd();
+        //    return _response;
+        //}
 
-        public Response CheckOut()
-        {
-            _response = new Response();
-            _response.Rentals = _repo.CheckOutDvd();
-            return _response;
-        }
+        //public Response CheckOut()
+        //{
+        //    _response = new Response();
+        //    _response.Rentals = _repo.CheckOutDvd();
+        //    return _response;
+        //}
 
         public Response GetAllBorrowers()
         {

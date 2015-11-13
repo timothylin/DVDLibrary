@@ -13,7 +13,6 @@ namespace DVDLibrary.DataLayer
 {
     public class MovieRepo
     {
-
         public static List<MovieInfo> Movies { get; set; }
         public static List<RentalInfo> Rentals { get; set; }
 
@@ -29,7 +28,7 @@ namespace DVDLibrary.DataLayer
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText = "select m.MovieID, m.MovieTitle, mpaa.FilmRating, m.ReleaseDate, " +
-                                   "d.DirectorID, d.FirstName, d.LastName, s.StudioID, s.StudioName " +
+                                   "d.DirectorID, d.FirstName as dFirstName, d.LastName as dLastName, s.StudioID, s.StudioName " +
                                     "from Movies m " +
                                     "Join Directors d " +
                                     "on m.DirectorID = d.DirectorID " +
@@ -59,8 +58,8 @@ namespace DVDLibrary.DataLayer
             using (var cn = new SqlConnection(Settings.ConnectionString))
             {
                 var cmd = new SqlCommand();
-                cmd.CommandText = "select m.MovieID, m.MovieTitle, mpaa.FilmRating, m.ReleaseDate, d.DirectorID, d.FirstName, " +
-                                   "d.LastName, s.StudioName, s.StudioID " +
+                cmd.CommandText = "select m.MovieID, m.MovieTitle, mpaa.FilmRating, m.ReleaseDate, d.DirectorID, d.FirstName as dFirstName, " +
+                                   "d.LastName as dLastName, s.StudioName, s.StudioID " +
                                     "from Movies m " +
                                     "Join Directors d " +
                                     "on m.DirectorID = d.DirectorID " +
@@ -204,7 +203,7 @@ namespace DVDLibrary.DataLayer
             using (SqlConnection cn = new SqlConnection(Settings.ConnectionString))
             {
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = "select mb.DateBorrowed, mb.DateReturned, mb.UserNotes, mb.UserRating,b.FirstName, b.LastName,m.MovieTitle , b.borrowerID, m.movieID, mp.filmrating , d.directorid, m.studioID, s.studioname, m.releasedate   " +
+                cmd.CommandText = "select mb.DateBorrowed, mb.DateReturned, mb.UserNotes, mb.UserRating, b.FirstName as bFirstName, b.LastName as bLastName, m.MovieTitle , b.borrowerID, " + "m.movieID, mp.filmrating , d.directorID, d.FirstName as dFirstName, d.LastName as dLastName, m.studioID, s.studioname, m.releasedate " +
                                   "from MovieBorrower mb " +
                                   "inner join Borrowers b " +
                                   "on b.BorrowerID = mb.BorrowerID " +
@@ -290,57 +289,57 @@ namespace DVDLibrary.DataLayer
 
 
 
-        public List<RentalInfo> CheckOutDvd()
-        {
-            using (SqlConnection cn = new SqlConnection(Settings.ConnectionString))
-            {
-                var cmd = new SqlCommand();
-                cmd.CommandText = "CheckOutDVD";
-                cmd.CommandType = CommandType.StoredProcedure;
+        //public List<RentalInfo> CheckOutDvd()
+        //{
+        //    using (SqlConnection cn = new SqlConnection(Settings.ConnectionString))
+        //    {
+        //        var cmd = new SqlCommand();
+        //        cmd.CommandText = "CheckOutDVD";
+        //        cmd.CommandType = CommandType.StoredProcedure;
 
-                cmd.Connection = cn;
+        //        cmd.Connection = cn;
 
-                cn.Open();
+        //        cn.Open();
 
-                using (SqlDataReader dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        Rentals.Add(PopulateRentalInfoFromDataReader(dr));
-                    }
-                }
-            }
+        //        using (SqlDataReader dr = cmd.ExecuteReader())
+        //        {
+        //            while (dr.Read())
+        //            {
+        //                Rentals.Add(PopulateRentalInfoFromDataReader(dr));
+        //            }
+        //        }
+        //    }
 
-            return Rentals;
-        }
+        //    return Rentals;
+        //}
 
 
 
-        public List<RentalInfo> CheckInDvd()
-        {
-            using (SqlConnection cn = new SqlConnection(Settings.ConnectionString))
-            {
-                var cmd = new SqlCommand();
-                cmd.CommandText = "CheckInDVD";
-                cmd.CommandType = CommandType.StoredProcedure;
+        //public List<RentalInfo> CheckInDvd()
+        //{
+        //    using (SqlConnection cn = new SqlConnection(Settings.ConnectionString))
+        //    {
+        //        var cmd = new SqlCommand();
+        //        cmd.CommandText = "CheckInDVD";
+        //        cmd.CommandType = CommandType.StoredProcedure;
 
-                cmd.Connection = cn;
+        //        cmd.Connection = cn;
 
-                cn.Open();
+        //        cn.Open();
 
-                using (SqlDataReader dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        Rentals.Add(PopulateRentalInfoFromDataReader(dr));
-                    }
-                }
-            }
+        //        using (SqlDataReader dr = cmd.ExecuteReader())
+        //        {
+        //            while (dr.Read())
+        //            {
+        //                Rentals.Add(PopulateRentalInfoFromDataReader(dr));
+        //            }
+        //        }
+        //    }
 
-            return Rentals;
-        }
+        //    return Rentals;
+        //}
 
-        private List<Actor> GetListOfActorsByMovieID(int movieID)
+        public List<Actor> GetListOfActorsByMovieID(int movieID)
         {
             List<Actor> actors = new List<Actor>();
 
@@ -370,6 +369,21 @@ namespace DVDLibrary.DataLayer
             return actors;
         }
 
+        //public List<Borrower> GetAllBorrowers()
+
+        //{
+
+        //    List<Actor> actors = new List<Actor>();
+
+        //    using (SqlConnection cn = new SqlConnection(Settings.ConnectionString))
+        //    {
+        //        actors = cn.Query<Actor>("select * from Actors").ToList();
+        //    }
+
+        //    return actors;
+        //}
+
+
         private RentalInfo PopulateRentalInfoFromDataReader(SqlDataReader dr)
 
         {
@@ -377,8 +391,8 @@ namespace DVDLibrary.DataLayer
             var rental = new RentalInfo();
 
             rental.Borrower.BorrowerID = (int)dr["BorrowerID"];
-            rental.Borrower.FirstName = dr["FirstName"].ToString();
-            rental.Borrower.LastName = dr["LastName"].ToString();
+            rental.Borrower.FirstName = dr["bFirstName"].ToString();
+            rental.Borrower.LastName = dr["bLastName"].ToString();
             rental.Movie = PopulateMovieInfoFromDataReader(dr);
 
             if (dr["UserNotes"] != DBNull.Value)
@@ -418,8 +432,8 @@ namespace DVDLibrary.DataLayer
             movie.Title = dr["MovieTitle"].ToString();
             movie.MpaaRating.FilmRating = dr["FilmRating"].ToString();
             movie.Director.DirectorID = (int)dr["DirectorID"];
-            movie.Director.FirstName = dr["FirstName"].ToString();
-            movie.Director.LastName = dr["LastName"].ToString();
+            movie.Director.FirstName = dr["dFirstName"].ToString();
+            movie.Director.LastName = dr["dLastName"].ToString();
             movie.Studio.StudioID = (int) dr["StudioID"];
             movie.Studio.StudioName = dr["StudioName"].ToString();
             movie.ReleaseDate = (int)dr["ReleaseDate"];
