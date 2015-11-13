@@ -399,6 +399,28 @@ namespace DVDLibrary.DataLayer
             return Directors;
         }
 
+        public List<MpaaRating> GetAllMpaaRatings()
+
+        {
+            using (SqlConnection cn = new SqlConnection(Settings.ConnectionString))
+            {
+                MpaaRatings = cn.Query<MpaaRating>("select * from MPAARatings").ToList();
+            }
+
+            return MpaaRatings;
+        }
+
+        public List<Studio> GetAllStudios()
+
+        {
+            using (SqlConnection cn = new SqlConnection(Settings.ConnectionString))
+            {
+                Studios = cn.Query<Studio>("select * from Studios").ToList();
+            }
+
+            return Studios;
+        }
+
 
         private RentalInfo PopulateRentalInfoFromDataReader(SqlDataReader dr)
 
