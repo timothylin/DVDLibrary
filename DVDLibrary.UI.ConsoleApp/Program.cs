@@ -13,32 +13,32 @@ namespace DVDLibrary.UI.ConsoleApp
     {
         private static void Main(string[] args)
         {
-            var repo = new MovieRepo();
+            //var repo = new MovieRepo();
 
-            var rentals = repo.GetAllBorrowersInfo();
+            //var rentals = repo.GetAllBorrowersInfo();
 
-            foreach (var rental in rentals)
-            {
-                Console.WriteLine("Movie Title: {0}", rental.Movie.Title);
-                //Console.WriteLine("Movie ID: {0}", rental.MovieID);
-                //Console.WriteLine("MPAA Rating: {0}", rental.MpaaRating.FilmRating);
+            //foreach (var rental in rentals)
+            //{
+            //    Console.WriteLine("Movie Title: {0}", rental.Movie.Title);
+            //    //Console.WriteLine("Movie ID: {0}", rental.MovieID);
+            //    //Console.WriteLine("MPAA Rating: {0}", rental.MpaaRating.FilmRating);
 
-                Console.WriteLine("Director: {0} {1}", rental.Movie.Director.FirstName, rental.Movie.Director.LastName);
-                Console.WriteLine("Borrower: {0} {1}", rental.Borrower.FirstName, rental.Borrower.LastName);
-                //Console.WriteLine("Release Date: {0}", rental.ReleaseDate);
-                //Console.WriteLine("Studio: {0}", rental.Studio.StudioName);
+            //    Console.WriteLine("Director: {0} {1}", rental.Movie.Director.FirstName, rental.Movie.Director.LastName);
+            //    Console.WriteLine("Borrower: {0} {1}", rental.Borrower.FirstName, rental.Borrower.LastName);
+            //    //Console.WriteLine("Release Date: {0}", rental.ReleaseDate);
+            //    //Console.WriteLine("Studio: {0}", rental.Studio.StudioName);
 
-                //foreach (var actor in rental.Actors)
-                //{
-                //    Console.WriteLine("Actor ID: {0}", actor.ActorID);
-                //    Console.WriteLine("Actor First Name: {0}", actor.FirstName);
-                //    Console.WriteLine("Actor Last Name: {0}", actor.LastName);
-                //}
+            //    //foreach (var actor in rental.Actors)
+            //    //{
+            //    //    Console.WriteLine("Actor ID: {0}", actor.ActorID);
+            //    //    Console.WriteLine("Actor First Name: {0}", actor.FirstName);
+            //    //    Console.WriteLine("Actor Last Name: {0}", actor.LastName);
+            //    //}
 
-            }
+            //}
 
 
-            Console.ReadLine();
+            //Console.ReadLine();
             //MovieRepo repo = new MovieRepo();
 
             //var movies = repo.GetAllMovieInfo();

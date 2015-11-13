@@ -20,22 +20,27 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="row margin-top-10">
-                            <div class="col-md-3">@movie.MovieID</div>
-                            <div class="col-md-3">@movie.Title</div>
-                            <div class="col-md-3">@movie.MpaaRating.FilmRating</div>
-                            <div class="col-md-3">
-                                @using (Html.BeginForm("Details", "Home", null, FormMethod.Post ))
-                                {
-                                    @Html.Hidden("movieID", movie.MovieID)
-                                    <button id="details" class="btn btn-danger">Details</button>
-                                }
-                                @using (Html.BeginForm("Remove", "Home", null, FormMethod.Post))
-                                {
-                                    @Html.Hidden("movieID", movie.MovieID)
-                                    <button id="remove" class="btn btn-primary">Remove</button>
-                                }
-                                
-                            </div>
+                                    <div class="col-md-3">@movie.MovieID</div>
+                                <div class="col-md-3">@movie.Title</div>
+
+                                <div class="col-md-3">@movie.MpaaRating.FilmRating</div>
+                                <div class="col-md-3 ignore-me">
+                                    @using (Html.BeginForm("Details", "Home", null, FormMethod.Post))
+                                    {
+                                        @Html.Hidden("movieID", movie.MovieID)
+                                        <button id="details" class="btn btn-danger">Details</button>
+                                    }
+                                    @using (Html.BeginForm("Remove", "Home", null, FormMethod.Post))
+                                    {
+                                        @Html.Hidden("movieID", movie.MovieID)
+                                        <button id="remove" class="btn btn-primary">Remove</button>
+                                    }
+                                    @using (Html.BeginForm("Track", "Borrower", null, FormMethod.Post))
+                                    {
+                                        @Html.Hidden("movieID", movie.MovieID) 
+                                        <button class="btn btn-default">Track</button>
+                                    }
+                                </div>
                         </div>
                     </div>
                 </div>

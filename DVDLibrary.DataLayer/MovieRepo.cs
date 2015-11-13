@@ -15,11 +15,23 @@ namespace DVDLibrary.DataLayer
     {
         public static List<MovieInfo> Movies { get; set; }
         public static List<RentalInfo> Rentals { get; set; }
+        public static List<Actor> Actors { get; set; } 
+        public static List<Actor> MovieActors { get; set; } 
+        public static List<Borrower> Borrowers { get; set; } 
+        public static List<Director> Directors { get; set; } 
+        public static List<MpaaRating> MpaaRatings { get; set; } 
+        public static List<Studio> Studios { get; set; } 
 
         public MovieRepo()
         {
             Movies = new List<MovieInfo>();
             Rentals = new List<RentalInfo>();
+            Actors = new List<Actor>();
+            MovieActors = new List<Actor>();
+            Borrowers = new List<Borrower>();
+            Directors = new List<Director>();
+            MpaaRatings = new List<MpaaRating>();
+            Studios = new List<Studio>();
         }
 
         public List<MovieInfo> GetAllMovieInfo()
@@ -341,47 +353,73 @@ namespace DVDLibrary.DataLayer
 
         public List<Actor> GetListOfActorsByMovieID(int movieID)
         {
-            List<Actor> actors = new List<Actor>();
-
             using (SqlConnection cn = new SqlConnection(Settings.ConnectionString))
             {
 
                 var p = new DynamicParameters();
                 p.Add("@MovieID", movieID);
-                actors = cn.Query<Actor>("GetActorsByMovieID", p, commandType: CommandType.StoredProcedure).ToList();
+                MovieActors = cn.Query<Actor>("GetActorsByMovieID", p, commandType: CommandType.StoredProcedure).ToList();
 
             }
 
-            return actors;
+            return MovieActors;
         }
 
         public List<Actor> GetAllActors()
 
         {
 
-            List<Actor> actors = new List<Actor>();
-
             using (SqlConnection cn = new SqlConnection(Settings.ConnectionString))
             {
-                actors = cn.Query<Actor>("select * from Actors").ToList();
+                Actors = cn.Query<Actor>("select * from Actors").ToList();
             }
 
-            return actors;
+            return Actors;
         }
 
-        //public List<Borrower> GetAllBorrowers()
+        public List<Borrower> GetAllBorrowers()
 
-        //{
+        {
+            using (SqlConnection cn = new SqlConnection(Settings.ConnectionString))
+            {
+                Borrowers = cn.Query<Borrower>("select * from Borrowers").ToList();
+            }
 
-        //    List<Actor> actors = new List<Actor>();
+            return Borrowers;
+        }
 
-        //    using (SqlConnection cn = new SqlConnection(Settings.ConnectionString))
-        //    {
-        //        actors = cn.Query<Actor>("select * from Actors").ToList();
-        //    }
+        public List<Director> GetAllDirectors()
 
-        //    return actors;
-        //}
+        {
+            using (SqlConnection cn = new SqlConnection(Settings.ConnectionString))
+            {
+                Directors = cn.Query<Director>("select * from Directors").ToList();
+            }
+
+            return Directors;
+        }
+
+        public List<MpaaRating> GetAllMpaaRatings()
+
+        {
+            using (SqlConnection cn = new SqlConnection(Settings.ConnectionString))
+            {
+                MpaaRatings = cn.Query<MpaaRating>("select * from MPAARatings").ToList();
+            }
+
+            return MpaaRatings;
+        }
+
+        public List<Studio> GetAllStudios()
+
+        {
+            using (SqlConnection cn = new SqlConnection(Settings.ConnectionString))
+            {
+                Studios = cn.Query<Studio>("select * from Studios").ToList();
+            }
+
+            return Studios;
+        }
 
 
         private RentalInfo PopulateRentalInfoFromDataReader(SqlDataReader dr)

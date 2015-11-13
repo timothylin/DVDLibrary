@@ -124,7 +124,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\myScripts.js" />
+    <Content Include="Scripts\app\search.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -145,7 +145,7 @@
     <Content Include="Views\Home\Details.cshtml" />
     <Content Include="Views\Home\Remove.cshtml" />
     <Content Include="Views\Home\ConfirmDelete.cshtml" />
-    <Content Include="Views\Borrower\Index.cshtml" />
+    <Content Include="Views\Borrower\Track.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
