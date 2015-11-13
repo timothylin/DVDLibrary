@@ -11,7 +11,7 @@ namespace DVDLibrary.BLL
 {
     public class MovieOperations
     {
-        private static MovieRepo _repo = new MovieRepo();
+        private MovieRepo _repo = new MovieRepo();
         private Response _response;
 
         public MovieOperations()
