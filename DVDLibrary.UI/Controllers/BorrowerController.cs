@@ -17,21 +17,6 @@ namespace DVDLibrary.UI.Controllers
             var movie = ops.TrackDvd(movieID);
             return View("Track", movie.Rentals);
         }
-
-        //public ActionResult CheckIn()
-        //{
-        //    return View();
-        //}
-
-        //[HttpPost]
-        //public ActionResult CheckInResult()
-        //{
-        //    var ops = new MovieOperations();
-        //    ops.CheckIn();
-        //    return View();
-        //}
-
-        
-        
+       
     }
 }
