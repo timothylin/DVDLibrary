@@ -162,13 +162,16 @@ namespace DVDLibrary.Tests
         }
 
 
-        [Test]
-        public void TrackDvdByMovieID()
-        {
-            List<RentalInfo> movie = _repo.TrackDvdByMovieID(2);
+        //[Test]
+        //public void TrackDvdByMovieID()
+        //{
+        //    List<RentalInfo> movie = _repo.TrackDvdByMovieID(2);
 
-            Assert.AreEqual(2, movie.FirstOrDefault(m => m.Movie.MovieID == 2).Movie.MovieID);
-        }
+        //    Assert.AreEqual(2, movie.FirstOrDefault(m => m.Movie.MovieID == 2).Movie.MovieID);
+        //}
+
+
+   
 
 
 
