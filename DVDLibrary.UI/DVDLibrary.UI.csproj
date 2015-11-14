@@ -146,6 +146,7 @@
     <Content Include="Views\Home\Remove.cshtml" />
     <Content Include="Views\Home\ConfirmDelete.cshtml" />
     <Content Include="Views\Borrower\Track.cshtml" />
+    <Content Include="Views\Home\Add.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

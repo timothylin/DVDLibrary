@@ -15,13 +15,26 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="row margin-top-10">
-                            <div class="col-md-3">@rental.Movie.Title</div>
-                            <div class="col-md-3">@rental.Borrower.BorrowerID</div>
-                            <div class="col-md-3">@rental.Borrower.FirstName</div>
+                            <div class="col-xs-3">
 
-                            <div class="col-md-3">@rental.Borrower.LastName</div>
-                            <div class="col-md-3">@rental.UserRating</div>
-                            <div>@rental.UserNotes</div>
+                                <h2>@rental.Movie.Title</h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <h6>Borrower ID: </h6>
+                                <p>@rental.Borrower.BorrowerID</p>
+                            </div>
+                            <div class="col-xs-6">
+                                <h6>Borrower Name: </h6>
+                                <p>@rental.Borrower.FirstName @rental.Borrower.LastName</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <h6>User Rating: </h6>
+                            <div class="col-xs-12">@rental.UserRating</div>
+                            <h6>User Notes: </h6>
+                            <div class="col-xs-12">@rental.UserNotes</div>
                         </div>
                             @*<div class="col-md-3">
                                 @using (Html.BeginForm("Details", "Home", null, FormMethod.Post))

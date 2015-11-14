@@ -1,0 +1,49 @@
+﻿@model DVDLibrary.Models.MovieInfo
+
+@{
+    ViewBag.Title = "Add";
+}
+
+<h2>Add New DVD to Database</h2>
+
+<div id="AddMovieForm" class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <br />
+            @using (Html.BeginForm("Add", "Home", FormMethod.Post))
+            {
+                @*@Html.ValidationSummary(true)*@
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Movie Title: * @Html.ValidationMessageFor(m => m.Title)</h6>
+                            <p>@Html.TextBoxFor(m => m.Title, new { style = "width:100%", placeholder = "Movie Title" })</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Release Date: * @Html.ValidationMessageFor(m => m.ReleaseDate)</h6>
+                            <p>@Html.TextBoxFor(m => m.ReleaseDate, new { style = "width:100%", placeholder = "e.g. 12/12/2015" })</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            @*<h6>MPAA Rating: * @Html.ValidationMessageFor(m => m.MpaaRating.FilmRating)</h6>
+                                <p>@Html.DropDownListFor(m => m.MpaaRating.MpaaRatingID)</p>*@
+                            <h6>Studio Name: * @Html.ValidationMessageFor(m => m.Studio.StudioName)</h6>
+                            <p>@Html.TextBoxFor(m => m.Studio.StudioName, new { style = "width:100%", placeholder = "Studio Name" })</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Director First Name: * @Html.ValidationMessageFor(m => m.Director.FirstName)</h6>
+                            <p>@Html.TextBoxFor(m => m.Director.FirstName, new { style = "width:100%", placeholder = "First Name" })</p>
+                            <h6>Director Last Name: </h6>
+                            <p>@Html.TextBoxFor(m => m.Director.LastName, new { style = "width:100%", placeholder = "Last Name" })</p>
+                        </div>
+                    </div>
+                    <button class="btn btn-danger btn-block btn-lg">Apply Now</button>
+                    <br />
+                    <br />
+                </div>
+
+            }
+        </div>
+    </div>
+</div>

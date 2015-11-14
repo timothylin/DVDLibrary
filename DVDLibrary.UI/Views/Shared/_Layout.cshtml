@@ -4,31 +4,33 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Team Timothy Kims DVD Library</title>
+    <!-- make sure your custom css("Site.css") is below your bootstrap or any framework css file you're using
+        because the top file will be overwritten by file below it.-->
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/flatly/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Apocolypse Rental", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("All Movies", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Check In", "CheckIn", "Borrower")</li>
-                    <li>@Html.ActionLink("Check Out", "CheckOut", "Home")</li>
-                    <li>@Html.ActionLink("Add", "Add", "Home")</li>
-                    <li>@Html.ActionLink("Track", "Track", "Home")</li>
-                </ul>
-                <div class="col-sm-3 col-md-3 pull-right">
+<!--Two parts to the navbar in bootstrap. -->
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink("Apocolypse Rental", "Index", "Home", new {area = ""}, new {@class = "navbar-brand"})
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>@Html.ActionLink("All Movies", "Index", "Home")</li>
+                @*<li>@Html.ActionLink("Check In", "CheckIn", "Borrower")</li>
+                    <li>@Html.ActionLink("Check Out", "CheckOut", "Home")</li>*@
+                <li>@Html.ActionLink("Add", "Add", "Home")</li>
+                @*<li>@Html.ActionLink("Track", "Track", "Borrower")</li>*@
+                <li>
                     <form class="navbar-form" role="search">
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Search by Movie Title..." name="search" id="search" data-list=".list">
@@ -37,22 +39,24 @@
                             </div>
                         </div>
                     </form>
-                </div>
-            </div>
+                </li>
+            </ul>
+
         </div>
     </div>
+</div>
 
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Apocolypse Rental</p>
-        </footer>
-    </div>
+<div class="container body-content">
+    @RenderBody()
+    <hr/>
+    <footer>
+        <p>&copy; @DateTime.Now.Year - Apocolypse Rental</p>
+    </footer>
+</div>
 
-    <script src="~/Scripts/jquery-2.1.4.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/jquery.hideseek.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/app/search.js"></script>
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.hideseek.min.js"></script>
+<script type="text/javascript" src="~/Scripts/app/search.js"></script>
 </body>
 </html>

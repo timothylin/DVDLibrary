@@ -46,6 +46,17 @@ namespace DVDLibrary.UI.Controllers
             return Content("ConfirmDelete");
         }
 
+        public ActionResult Add()
+        {
+            return View();
+        }
+
+        //[HttpPost]
+        //public ActionResult Add()
+        //{
+
+        //}
+
 
     }
 }
