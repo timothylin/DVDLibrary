@@ -51,33 +51,51 @@ namespace DVDLibrary.UI.Controllers
         public ActionResult Add()
         {
             var ops = new MovieOperations();
-            var listOfRatings = ops.GetMPAARatingsList();
 
-            MovieInfoVM newMovieClass = new MovieInfoVM();
+            MovieInfoVM movieInfoVm = new MovieInfoVM();
 
-            newMovieClass.MpaaRating = new MpaaRating();
+            var ratingsResponse = ops.GetAllMpaaRatings();
+            var actorsResponse = ops.GetAllActors();
+            var borrowersResponse = ops.GetAllBorrowers();
+            var studiosResponse = ops.GetAllStudios();
+            var directorsResponse = ops.GetAllDirectors();
 
-            newMovieClass.CreateMpaaList(listOfRatings);
+            movieInfoVm.CreateMpaaRatingsList(ratingsResponse.MpaaRatings);
+            movieInfoVm.CreateActorsList(actorsResponse.Actors);
+            movieInfoVm.CreateBorrowersList(borrowersResponse.Borrowers);
+            movieInfoVm.CreateStudiosList(studiosResponse.Studios);
+            movieInfoVm.CreateDirectorsList(directorsResponse.Directors);
 
-            return View(newMovieClass);
+            return View(movieInfoVm);
         }
 
         [HttpPost]
-        public ActionResult Add(MovieInfo movieInfo)
+        public ActionResult Add(MovieInfoVM movieInfoVm)
         {
             var ops = new MovieOperations();
-            var listOfRatings = ops.GetMPAARatingsList();
 
-            MovieInfoVM newMovieClass = new MovieInfoVM();
+            var ratingsResponse = ops.GetAllMpaaRatings();
+            var actorsResponse = ops.GetAllActors();
+            var borrowersResponse = ops.GetAllBorrowers();
+            var studiosResponse = ops.GetAllStudios();
+            var directorsResponse = ops.GetAllDirectors();
 
-            newMovieClass.MpaaRating = new MpaaRating();
+            movieInfoVm.CreateMpaaRatingsList(ratingsResponse.MpaaRatings);
+            movieInfoVm.CreateActorsList(actorsResponse.Actors);
+            movieInfoVm.CreateBorrowersList(borrowersResponse.Borrowers);
+            movieInfoVm.CreateStudiosList(studiosResponse.Studios);
+            movieInfoVm.CreateDirectorsList(directorsResponse.Directors);
 
-            newMovieClass.CreateMpaaList(listOfRatings);
+            if (ModelState.IsValid)
+            {
+                ops.AddMovie(movieInfoVm.Movie);
 
-            ops.AddMovie(movieInfo);
-            return View(newMovieClass);
+                return View("Details", movieInfoVm.Movie);
+            }
+            else
+            {
+                return View(movieInfoVm);
+            }
         }
-
-
     }
 }

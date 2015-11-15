@@ -18,7 +18,6 @@ namespace DVDLibrary.Models
         public Studio Studio { get; set; }
         public List<Actor> Actors { get; set; }
 
-
         public MovieInfo()
         {
             Actors = new List<Actor>();
@@ -26,9 +25,5 @@ namespace DVDLibrary.Models
             Director = new Director();
             Studio = new Studio();
         }
-
-
-
-     
     }
 }

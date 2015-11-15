@@ -22,6 +22,7 @@ namespace DVDLibrary.BLL
         public Response GetAllMovies()
         {
             _response = new Response();
+
             _response.Movies = _repo.GetAllMovieInfo();
 
             if (_response.Movie != null)
@@ -35,6 +36,7 @@ namespace DVDLibrary.BLL
         public Response GetMovieByID(int movieID)
         {
             _response = new Response();
+
             var movie = _repo.GetMovieByID(movieID);
 
             if (movie != null)
@@ -91,6 +93,12 @@ namespace DVDLibrary.BLL
         {
             _response = new Response();
             _response.Rentals = _repo.TrackDvdByMovieID(movieID);
+
+            if (_response.Rentals != null)
+            {
+                _response.Success = true;
+            }
+
             return _response;
         }
 
@@ -134,14 +142,68 @@ namespace DVDLibrary.BLL
         }
         //***********************************************************************
         //***********Ussing for the dropdownList for Add/HomeController********* 
-        public List<MpaaRating> GetMPAARatingsList()
+        public Response GetAllMpaaRatings()
         {
-            var ratings = _repo.GetAllMpaaRatings();
-            return ratings;
+            _response.MpaaRatings = _repo.GetAllMpaaRatings();
+
+            if (_response.MpaaRatings != null)
+            {
+                _response.Success = true;
+            }
+
+            return _response;
         } 
         //*************************************************************************
 
         //    return _response;
         //}
+
+        public Response GetAllActors()
+        {
+            _response.Actors = _repo.GetAllActors();
+
+            if (_response.Actors != null)
+            {
+                _response.Success = true;
+            }
+
+            return _response;
+        }
+
+        public Response GetAllBorrowers()
+        {
+            _response.Borrowers = _repo.GetAllBorrowers();
+
+            if (_response.Borrowers != null)
+            {
+                _response.Success = true;
+            }
+
+            return _response;
+        }
+
+        public Response GetAllDirectors()
+        {
+            _response.Directors = _repo.GetAllDirectors();
+
+            if (_response.Directors != null)
+            {
+                _response.Success = true;
+            }
+
+            return _response;
+        }
+
+        public Response GetAllStudios()
+        {
+            _response.Studios = _repo.GetAllStudios();
+
+            if (_response.Studios != null)
+            {
+                _response.Success = true;
+            }
+
+            return _response;
+        }
     }
 }
