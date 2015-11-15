@@ -50,7 +50,16 @@ namespace DVDLibrary.UI.Controllers
 
         public ActionResult Add()
         {
-            return View();
+            var ops = new MovieOperations();
+            var listOfRatings = ops.GetMPAARatingsList();
+
+            MovieInfoVM newMovieClass = new MovieInfoVM();
+
+            newMovieClass.MpaaRating = new MpaaRating();
+
+            newMovieClass.CreateMpaaList(listOfRatings);
+
+            return View(newMovieClass);
         }
 
         [HttpPost]

@@ -11,14 +11,6 @@ namespace DVDLibrary.UI.Models
     {
         //Added this class for the dropDownList in the add view
 
-        public MovieInfoVM()
-        {
-            Actors = new List<Actor>();
-            MpaaRating = new MpaaRating();
-            Director = new Director();
-            Studio = new Studio();
-        }
-
         public List<SelectListItem> ListMpaa { get; set; }
 
         public int MovieID { get; set; }
@@ -29,6 +21,14 @@ namespace DVDLibrary.UI.Models
         public Studio Studio { get; set; }
         public List<Actor> Actors { get; set; }
 
+        public MovieInfoVM()
+        {
+            Actors = new List<Actor>();
+            MpaaRating = new MpaaRating();
+            Director = new Director();
+            Studio = new Studio();
+            ListMpaa = new List<SelectListItem>();
+        }
 
         public void CreateMpaaList(List<MpaaRating> listmpaa)
         {
