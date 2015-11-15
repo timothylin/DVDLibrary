@@ -24,6 +24,11 @@ namespace DVDLibrary.BLL
             _response = new Response();
             _response.Movies = _repo.GetAllMovieInfo();
 
+            if (_response.Movie != null)
+            {
+                _response.Success = true;
+            }
+
             return _response;
         }
 
@@ -103,29 +108,29 @@ namespace DVDLibrary.BLL
         //    return _response;
         //}
 
-        public Response GetAllBorrowers()
-        {
-            _response = new Response();
-            _response.Rentals = _repo.GetAllBorrowersInfo();
-            return _response;
-        }
+        //public Response GetAllBorrowers()
+        //{
+        //    _response = new Response();
+        //    _response.Rentals = _repo.GetAllBorrowersInfo();
+        //    return _response;
+        //}
 
-        public Response GetBorrowerByID(int borrowerID)
-        {
-            _response = new Response();
-            var rental = _repo.GetBorrowerByID(borrowerID);
+        //public Response GetBorrowerByID(int borrowerID)
+        //{
+        //    _response = new Response();
+        //    var rental = _repo.GetBorrowerByID(borrowerID);
 
-            if (rental != null)
-            {
-                _response.Success = true;
-                _response.Rental = rental;
-            }
-            else
-            {
-                _response.Success = false;
-            }
+        //    if (rental != null)
+        //    {
+        //        _response.Success = true;
+        //        _response.Rental = rental;
+        //    }
+        //    else
+        //    {
+        //        _response.Success = false;
+        //    }
 
-            return _response;
-        }
+        //    return _response;
+        //}
     }
 }

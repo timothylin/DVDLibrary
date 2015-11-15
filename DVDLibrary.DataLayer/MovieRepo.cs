@@ -210,37 +210,37 @@ namespace DVDLibrary.DataLayer
 
         }
 
-        public List<RentalInfo> GetAllBorrowersInfo()
-        {
-            using (SqlConnection cn = new SqlConnection(Settings.ConnectionString))
-            {
-                SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = "select mb.DateBorrowed, mb.DateReturned, mb.UserNotes, mb.UserRating, b.FirstName as bFirstName, b.LastName as bLastName, m.MovieTitle , b.borrowerID, " + "m.movieID, mp.filmrating , d.directorID, d.FirstName as dFirstName, d.LastName as dLastName, m.studioID, s.studioname, m.releasedate " +
-                                  "from MovieBorrower mb " +
-                                  "inner join Borrowers b " +
-                                  "on b.BorrowerID = mb.BorrowerID " +
-                                  "join Movies m " +
-                                  "on m.MovieID = mb.MovieID " +
-                                  "join mpaaratings mp " +
-                                  "on m.mpaaratingid = mp.mpaaratingid " +
-                                  "join Directors d " +
-                                  "on m.directorid = d.directorid " +
-                                  "join studios s " +
-                                  "on m.studioid = s.studioid";
-                cmd.Connection = cn;
+        //public List<RentalInfo> GetAllBorrowersInfo()
+        //{
+        //    using (SqlConnection cn = new SqlConnection(Settings.ConnectionString))
+        //    {
+        //        SqlCommand cmd = new SqlCommand();
+        //        cmd.CommandText = "select mb.DateBorrowed, mb.DateReturned, mb.UserNotes, mb.UserRating, b.FirstName as bFirstName, b.LastName as bLastName, m.MovieTitle , b.borrowerID, " + "m.movieID, mp.filmrating , d.directorID, d.FirstName as dFirstName, d.LastName as dLastName, m.studioID, s.studioname, m.releasedate " +
+        //                          "from MovieBorrower mb " +
+        //                          "inner join Borrowers b " +
+        //                          "on b.BorrowerID = mb.BorrowerID " +
+        //                          "join Movies m " +
+        //                          "on m.MovieID = mb.MovieID " +
+        //                          "join mpaaratings mp " +
+        //                          "on m.mpaaratingid = mp.mpaaratingid " +
+        //                          "join Directors d " +
+        //                          "on m.directorid = d.directorid " +
+        //                          "join studios s " +
+        //                          "on m.studioid = s.studioid";
+        //        cmd.Connection = cn;
 
-                cn.Open();
+        //        cn.Open();
 
-                using (SqlDataReader dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        Rentals.Add(PopulateRentalInfoFromDataReader(dr));
-                    }
-                }
-            }
-            return Rentals;
-        }
+        //        using (SqlDataReader dr = cmd.ExecuteReader())
+        //        {
+        //            while (dr.Read())
+        //            {
+        //                Rentals.Add(PopulateRentalInfoFromDataReader(dr));
+        //            }
+        //        }
+        //    }
+        //    return Rentals;
+        //}
 
         public RentalInfo GetBorrowerByID(int borrowerID)
 
