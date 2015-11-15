@@ -7,6 +7,8 @@ using System.Web.Mvc;
 using System.Web.Services.Description;
 using DVDLibrary.BLL;
 using DVDLibrary.DataLayer;
+using DVDLibrary.Models;
+using DVDLibrary.UI.Models;
 
 namespace DVDLibrary.UI.Controllers
 {
@@ -51,11 +53,21 @@ namespace DVDLibrary.UI.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //public ActionResult Add()
-        //{
+        [HttpPost]
+        public ActionResult Add(MovieInfo movieInfo)
+        {
+            var ops = new MovieOperations();
+            var listOfRatings = ops.GetMPAARatingsList();
 
-        //}
+            MovieInfoVM newMovieClass = new MovieInfoVM();
+
+            newMovieClass.MpaaRating = new MpaaRating();
+
+            newMovieClass.CreateMpaaList(listOfRatings);
+
+            ops.AddMovie(movieInfo);
+            return View(newMovieClass);
+        }
 
 
     }

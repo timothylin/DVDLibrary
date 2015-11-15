@@ -301,6 +301,8 @@ namespace DVDLibrary.DataLayer
 
 
 
+
+
         //public List<RentalInfo> CheckOutDvd()
         //{
         //    using (SqlConnection cn = new SqlConnection(Settings.ConnectionString))

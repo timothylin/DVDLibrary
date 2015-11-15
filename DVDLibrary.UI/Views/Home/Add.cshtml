@@ -1,4 +1,5 @@
-﻿@model DVDLibrary.Models.MovieInfo
+﻿@using DVDLibrary.Models
+@model DVDLibrary.UI.Models.MovieInfoVM 
 
 @{
     ViewBag.Title = "Add";
@@ -26,19 +27,39 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            @*<h6>MPAA Rating: * @Html.ValidationMessageFor(m => m.MpaaRating.FilmRating)</h6>
-                                <p>@Html.DropDownListFor(m => m.MpaaRating.MpaaRatingID)</p>*@
+                            <h6>MPAA Rating: * @Html.ValidationMessageFor(m => m.MpaaRating.FilmRating)</h6>
+
+                @***************************************************************************************************************************@
+                @***************************************************LARA DropDown***********************************************************@
+
+                            <div>
+                                <p>
+                                    @Html.LabelFor(m => m.MpaaRating.FilmRating, htmlAttributes: new {@class = "control-label col-md-2"})
+                                    @Html.DropDownListFor(m => m.MpaaRating.FilmRating, Model.ListMpaa, htmlAttributes: new {@class = "control-label col-md-2"})
+                                </p>
+                            </div>
+                @***********************************************************************************************************************************@
+                @***********************************************************************************************************************************@
+
+
+
+
                             <h6>Studio Name: * @Html.ValidationMessageFor(m => m.Studio.StudioName)</h6>
                             <p>@Html.TextBoxFor(m => m.Studio.StudioName, new { style = "width:100%", placeholder = "Studio Name" })</p>
                         </div>
                         <div class="col-md-6">
                             <h6>Director First Name: * @Html.ValidationMessageFor(m => m.Director.FirstName)</h6>
                             <p>@Html.TextBoxFor(m => m.Director.FirstName, new { style = "width:100%", placeholder = "First Name" })</p>
-                            <h6>Director Last Name: </h6>
+                            <h6>Director Last Name:  * </h6>
                             <p>@Html.TextBoxFor(m => m.Director.LastName, new { style = "width:100%", placeholder = "Last Name" })</p>
                         </div>
                     </div>
-                    <button class="btn btn-danger btn-block btn-lg">Apply Now</button>
+                    @using (Html.BeginForm("Add", "Home", null, FormMethod.Post))
+                    {
+                        @Html.Hidden("Movie", Model)
+                        <button class="btn btn-danger btn-block btn-lg">Apply Now</button>
+                    }
+
                     <br />
                     <br />
                 </div>

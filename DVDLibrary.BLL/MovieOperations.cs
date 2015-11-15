@@ -127,5 +127,13 @@ namespace DVDLibrary.BLL
 
             return _response;
         }
+        //***********************************************************************
+        //***********Ussing for the dropdownList for Add/HomeController********* 
+        public List<MpaaRating> GetMPAARatingsList()
+        {
+            var ratings = _repo.GetAllMpaaRatings();
+            return ratings;
+        } 
+        //*************************************************************************
     }
 }

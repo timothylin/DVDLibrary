@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
+using NUnit.Framework;
 
 namespace DVDLibrary.Models
 {
@@ -16,6 +18,7 @@ namespace DVDLibrary.Models
         public Studio Studio { get; set; }
         public List<Actor> Actors { get; set; }
 
+
         public MovieInfo()
         {
             Actors = new List<Actor>();
@@ -23,5 +26,9 @@ namespace DVDLibrary.Models
             Director = new Director();
             Studio = new Studio();
         }
+
+
+
+     
     }
 }
