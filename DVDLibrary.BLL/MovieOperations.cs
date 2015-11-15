@@ -24,6 +24,11 @@ namespace DVDLibrary.BLL
             _response = new Response();
             _response.Movies = _repo.GetAllMovieInfo();
 
+            if (_response.Movie != null)
+            {
+                _response.Success = true;
+            }
+
             return _response;
         }
 
@@ -103,12 +108,12 @@ namespace DVDLibrary.BLL
         //    return _response;
         //}
 
-        public Response GetAllBorrowers()
-        {
-            _response = new Response();
-            _response.Rentals = _repo.GetAllBorrowersInfo();
-            return _response;
-        }
+        //public Response GetAllBorrowers()
+        //{
+        //    _response = new Response();
+        //    _response.Rentals = _repo.GetAllBorrowersInfo();
+        //    return _response;
+        //}
 
         public Response GetBorrowerByID(int borrowerID)
         {
@@ -135,5 +140,8 @@ namespace DVDLibrary.BLL
             return ratings;
         } 
         //*************************************************************************
+
+        //    return _response;
+        //}
     }
 }

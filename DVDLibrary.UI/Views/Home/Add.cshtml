@@ -1,9 +1,9 @@
-﻿@using DVDLibrary.Models
-@model DVDLibrary.UI.Models.MovieInfoVM 
+﻿@model DVDLibrary.UI.Models.MovieInfoVM
 
 @{
     ViewBag.Title = "Add";
 }
+
 
 <h2>Add New DVD to Database</h2>
 
@@ -29,17 +29,17 @@
                         <div class="col-md-6">
                             <h6>MPAA Rating: * @Html.ValidationMessageFor(m => m.MpaaRating.FilmRating)</h6>
 
-                @***************************************************************************************************************************@
-                @***************************************************LARA DropDown***********************************************************@
+                            @***************************************************************************************************************************@
+                            @***************************************************LARA DropDown***********************************************************@
 
                             <div>
                                 <p>
-                                    @Html.LabelFor(m => m.MpaaRating.FilmRating, htmlAttributes: new {@class = "control-label col-md-2"})
-                                    @Html.DropDownListFor(m => m.MpaaRating.FilmRating, Model.ListMpaa, htmlAttributes: new {@class = "control-label col-md-2"})
+                                    @Html.LabelFor(m => m.MpaaRating.FilmRating, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    @Html.DropDownListFor(m => m.MpaaRating.FilmRating, Model.ListMpaa, htmlAttributes: new { @class = "control-label col-md-2" })
                                 </p>
                             </div>
-                @***********************************************************************************************************************************@
-                @***********************************************************************************************************************************@
+                            @***********************************************************************************************************************************@
+                            @***********************************************************************************************************************************@
 
 
 
