@@ -35,11 +35,15 @@
                                 </p>
                             </div>
                             <h6>Studio Name: * @Html.ValidationMessageFor(m => m.StudiosList)</h6>
-                            <p>@Html.DropDownListFor(m => m.Movie.Studio.StudioID, Model.StudiosList, new { style = "width:100%", placeholder = "Studio Name" })</p>
+                            <p>@Html.DropDownListFor(m => m.Movie.Studio.StudioID, Model.StudiosList, new { style = "width:100%"})</p>
                         </div>
                         <div class="col-md-6">
                             <h6>Director: * @Html.ValidationMessageFor(m => m.DirectorsList)</h6>
-                            <p>@Html.DropDownListFor(m => m.Movie.Director.DirectorID, Model.DirectorsList, new { style = "width:100%", placeholder = "First Name" })</p>
+                            <p>@Html.DropDownListFor(m => m.Movie.Director.DirectorID, Model.DirectorsList, new {style = "width:100%"})</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Director: * @Html.ValidationMessageFor(m => m.ActorsList)</h6>
+                            <p>@Html.ListBoxFor(m => m.Movie.Actors, Model.ActorsList, new {style = "width:100%", placeholder = "First Name"})</p>
                         </div>
                     </div>
                     @*@using (Html.BeginForm("Add", "Home", null, FormMethod.Post))
