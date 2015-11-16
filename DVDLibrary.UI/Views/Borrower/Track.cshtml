@@ -4,55 +4,49 @@
 @{
     ViewBag.Title = "Track";
 }
+<div class="container">
+    <div class="col-lg-5 col-md-5 col-sm-12 col-center-block">
+        <h2 class="padding-top-20">Tracking</h2>
 
-<h2>Tracking</h2>
-
-<ul>
-    @foreach (var rental in Model)
-    {
-        <li class="list-no-style">
-            <div class="container">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <div class="row margin-top-10">
-                            <div class="col-xs-3">
-
-                                <h2>@rental.Movie.Title</h2>
+        <ul>
+            @foreach (var rental in Model)
+            {
+                <li class="list-no-style">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="row margin-top-10">
+                                <div class="col-xs-12">
+                                    <h2>@rental.Movie.Title</h2>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <h6>Borrower ID: </h6>
+                                    <p>@rental.Borrower.BorrowerID</p>
+                                </div>
+                                <div class="col-xs-6">
+                                    <h6>Borrower Name: </h6>
+                                    <p>@rental.Borrower.FirstName @rental.Borrower.LastName</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-xs-12">
+                                    <h6>User Rating: </h6>
+                                    <p>@rental.UserRating</p>
+                                </div>
+                                <div class="col-md-6 col-xs-12">
+                                    <h6>User Notes: </h6>
+                                    <p>@rental.UserNotes</p>
+                                </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-xs-6">
-                                <h6>Borrower ID: </h6>
-                                <p>@rental.Borrower.BorrowerID</p>
-                            </div>
-                            <div class="col-xs-6">
-                                <h6>Borrower Name: </h6>
-                                <p>@rental.Borrower.FirstName @rental.Borrower.LastName</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <h6>User Rating: </h6>
-                            <div class="col-xs-12">@rental.UserRating</div>
-                            <h6>User Notes: </h6>
-                            <div class="col-xs-12">@rental.UserNotes</div>
-                        </div>
-                            @*<div class="col-md-3">
-                                @using (Html.BeginForm("Details", "Home", null, FormMethod.Post))
-                                {
-                                    @Html.Hidden("movieID", movie.MovieID)
-                                    <button id="details" class="btn btn-danger">Details</button>
-                                }
-                                @using (Html.BeginForm("Remove", "Home", null, FormMethod.Post))
-                                {
-                                    @Html.Hidden("movieID", movie.MovieID)
-                                    <button id="remove" class="btn btn-primary">Remove</button>
-                                }
-                            </div>*@
-                        
                     </div>
-                </div>
-            </div>
-        </li>
-    }
-</ul>
-
+                </li>
+            }
+        </ul>
+        @using (Html.BeginForm("Index", "Home", null, FormMethod.Post))
+            {
+            <button id="cancel" class="btn btn-primary">Back</button>
+        }
+    </div>
+</div>

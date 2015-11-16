@@ -57,6 +57,10 @@ namespace DVDLibrary.UI.Controllers
 
         //}
 
+        public ActionResult About()
+        {
+            return View();
+        }
 
     }
 }

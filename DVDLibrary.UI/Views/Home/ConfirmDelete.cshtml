@@ -4,5 +4,9 @@
     ViewBag.Title = "ConfirmDelete";
 }
 
-<h2>@Model.Title is Deleted</h2>
+<h2 class="padding-top-40">@Model.Title has been Deleted</h2>
 
+@using (Html.BeginForm("Index", "Home", null, FormMethod.Post))
+            {
+    <button id="cancel" class="btn btn-primary">Back</button>
+}

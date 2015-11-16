@@ -4,58 +4,66 @@
 @{
     ViewBag.Title = "Details";
 }
+<div class="container">
+    <div class="col-lg-5 col-md-5 col-sm-12 col-center-block">
+        <h2 class="padding-top-20">@Model.Title</h2>
 
-<h2>@Model.Title</h2>
 
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-4">
+                        <h6>Movie ID</h6>
+                        <p>@Model.MovieID</p>
+                    </div>
+                    <div class="col-xs-4">
+                        <h6>MPAA Rating</h6>
+                        <p>@Model.MpaaRating.FilmRating</p>
+                    </div>
+                    <div class="col-xs-4">
+                        <h6>Release Date</h6>
+                        <p>@Model.ReleaseDate</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <h6>Director Name:</h6>
+                        <p>@Model.Director.FirstName @Model.Director.LastName</p>
+                        <p></p>
+                    </div>
+                    <div class="col-xs-6">
+                        <h6>Studio: </h6>
+                        <p>@Model.Studio.StudioName</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h4>Actors</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6"><h6>Actor ID: </h6>
+                    </div>
+                    <div class="col-xs-6">
+                        <h6>Actor Name:</h6>
+                    </div>
+                    @foreach (var actor in Model.Actors)
+                    {
+                        <div class="col-xs-6">
 
-<div class="panel panel-default">
-    <div class="panel-body">
-        <div class="row">
-            <div class="col-xs-4">
-                <h6>Movie ID</h6>
-                <p>@Model.MovieID</p>
-            </div>
-            <div class="col-xs-4">
-                <h6>MPAA Rating</h6>
-                <p>@Model.MpaaRating.FilmRating</p>
-            </div>
-            <div class="col-xs-4">
-                <h6>Release Date</h6>
-                <p>@Model.ReleaseDate</p>
+                            <p>@actor.ActorID</p>
+                        </div>
+                        <div class="col-xs-6">
+
+                            <p>@actor.FirstName @actor.LastName</p>
+                        </div>
+                    }
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-xs-6">
-                <h6>Director Name:</h6>
-                <p>@Model.Director.FirstName @Model.Director.LastName</p> 
-                <p></p>
-            </div>
-            <div class="col-xs-6">
-                <h6>Studio: </h6>
-                <p>@Model.Studio.StudioName</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-6">
-                <h6>Actors: </h6>
-                <h6>Actor ID: </h6>
-            </div>
-            <div class="col-xs-6">
-                <h6>Actor Name:</h6>
-            </div>
-        </div>
-        <div class="row">
-            @foreach (var actor in Model.Actors)
+        @using (Html.BeginForm("Index", "Home", null, FormMethod.Post))
             {
-                <div class="col-xs-6">
-                    
-                    <p>@actor.ActorID</p>
-                </div>
-                <div class="col-xs-6">
-                    
-                    <p>@actor.FirstName @actor.LastName</p>
-                </div>
-            }
-        </div>
+            <button id="cancel" class="btn btn-primary">Back</button>
+        }
     </div>
 </div>
