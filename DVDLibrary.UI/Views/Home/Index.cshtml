@@ -3,29 +3,36 @@
 @{
     ViewBag.Title = "Index";
 }
-
-<h2>All Movies</h2>
 <div class="container">
-    <div class="row">
-        <div class="col-xs-3"><h6>ID</h6></div>
-        <div class="col-xs-3"><h6>Title</h6></div>
-        <div class="col-xs-3"><h6>MPAA Rating</h6></div>
+    <h2 class="padding-top-20 margin-left-10">All Movies</h2>
+    <div class="container">
+        <div class="row hidden-sm hidden-xs">
+            <div class="col-sm-3 margin-left-50"><h6>ID</h6></div>
+            <div class="col-sm-2"><h6>Title</h6></div>
+            <div class="col-sm-2 margin-left-50"><h6>MPAA Rating</h6></div>
+        </div>
     </div>
-</div>
-<ul class="list">
-    @foreach (var movie in Model)
-    {
-        <li class="list-no-style">
-            <div class="container">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <div class="row margin-top-10">
-                            
-                            <div class="col-xs-3">@movie.MovieID</div>
-                            <div class="col-xs-3">@movie.Title</div>
-                            <div class="col-xs-3">@movie.MpaaRating.FilmRating</div>
+    <ul class="list">
+        @foreach (var movie in Model)
+        {
+            <li class="list-no-style">
+                <div class="no-container">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
 
-                            <div class="col-lg-3">
+                            <div class="row margin-top-10">
+
+                                <div class="col-sm-3 margin-top-35 margin-left-10 hidden-sm hidden-xs">
+                                    <p>@movie.MovieID</p></div>
+                                <div class="col-sm-3 margin-top-35 hidden-sm hidden-xs">
+                                    <p>@movie.Title</p></div>
+                                <div class="col-sm-1 margin-top-35 hidden-sm hidden-xs">
+                                    <p>@movie.MpaaRating.FilmRating</p></div>
+                                <div class="col-xs-12 visible-sm-block visible-xs-block">
+                                    <h2>@movie.Title</h2>
+                            </div>
+
+                            <div class="col-md-4 col-xs-12">
                                 <div class="col-xs-6">
                                     @using (Html.BeginForm("Details", "Home", null, FormMethod.Post))
                                     {
@@ -53,5 +60,6 @@
                 </div>
             </div>
         </li>
-    }
-</ul>
+        }
+    </ul>
+</div>
