@@ -35,7 +35,7 @@ namespace DVDLibrary.Tests
         }
 
         [Test]
-        public void GetMovieByID()
+        public void GetMovieByIDTest()
         {
 
             MovieInfo movie = _repo.GetMovieByID(1);
@@ -44,7 +44,7 @@ namespace DVDLibrary.Tests
         }
 
         [Test]
-        public void AddMovieWithInput()
+        public void AddMovieWithInputTest()
         {
             List<Actor> actors = new List<Actor>();
             Director director = new Director();
@@ -85,7 +85,7 @@ namespace DVDLibrary.Tests
 
 
         [Test]
-        public void RemoveMovieByID()
+        public void RemoveMovieByIDTest()
         {
 
             MovieInfo movieinfo = _repo.RemoveMovieByID(18);
@@ -95,7 +95,7 @@ namespace DVDLibrary.Tests
 
 
         [Test]
-        public void GetBorrowerByID()
+        public void GetBorrowerByIDTest()
         {
             RentalInfo borrower = _repo.GetBorrowerByID(5);
 
@@ -144,7 +144,7 @@ namespace DVDLibrary.Tests
         //}
 
         [Test]
-        public void GetAllActors()
+        public void GetAllActorsTest()
         {
             List<Actor> movieinfo = _repo.GetAllActors();
 
@@ -153,7 +153,7 @@ namespace DVDLibrary.Tests
 
 
         [Test]
-        public void GetListOfActorsByMovieID()
+        public void GetListOfActorsByMovieIDTest()
         {
             List<Actor> actors = _repo.GetListOfActorsByMovieID(2);
 
@@ -161,20 +161,36 @@ namespace DVDLibrary.Tests
 
         }
 
+        [Test]
+        public void GetAllBorrowersTest()
+        {
+            List<Borrower> borrowers = _repo.GetAllBorrowers();
 
-        //[Test]
-        //public void TrackDvdByMovieID()
-        //{
-        //    List<RentalInfo> movie = _repo.TrackDvdByMovieID(2);
+            Assert.AreEqual(1, borrowers.FirstOrDefault(b => b.BorrowerID == 1).BorrowerID);
+        }
 
-        //    Assert.AreEqual(2, movie.FirstOrDefault(m => m.Movie.MovieID == 2).Movie.MovieID);
-        //}
+        [Test]
+        public void GetAllDirectorsTest()
+        {
+            List<Director> directors = _repo.GetAllDirectors();
 
+            Assert.AreEqual(1, directors.FirstOrDefault(b => b.DirectorID == 1).DirectorID);
+        }
 
-   
+        [Test]
+        public void GetAllMpaaRatingsTest()
+        {
+            List<MpaaRating> mpaaRatings = _repo.GetAllMpaaRatings();
 
+            Assert.AreEqual(1, mpaaRatings.FirstOrDefault(b => b.MpaaRatingID == 1).MpaaRatingID);
+        }
 
+        [Test]
+        public void GetAllStudiosTest()
+        {
+            List<Studio> studios = _repo.GetAllStudios();
 
-
+            Assert.AreEqual(1, studios.FirstOrDefault(b => b.StudioID == 1).StudioID);
+        }
     }
 }

@@ -22,7 +22,13 @@ namespace DVDLibrary.BLL
         public Response GetAllMovies()
         {
             _response = new Response();
+
             _response.Movies = _repo.GetAllMovieInfo();
+
+            if (_response.Movie != null)
+            {
+                _response.Success = true;
+            }
 
             return _response;
         }
@@ -30,6 +36,7 @@ namespace DVDLibrary.BLL
         public Response GetMovieByID(int movieID)
         {
             _response = new Response();
+
             var movie = _repo.GetMovieByID(movieID);
 
             if (movie != null)
@@ -86,6 +93,12 @@ namespace DVDLibrary.BLL
         {
             _response = new Response();
             _response.Rentals = _repo.TrackDvdByMovieID(movieID);
+
+            if (_response.Rentals != null)
+            {
+                _response.Success = true;
+            }
+
             return _response;
         }
 
@@ -103,12 +116,12 @@ namespace DVDLibrary.BLL
         //    return _response;
         //}
 
-        public Response GetAllBorrowers()
-        {
-            _response = new Response();
-            _response.Rentals = _repo.GetAllBorrowersInfo();
-            return _response;
-        }
+        //public Response GetAllBorrowers()
+        //{
+        //    _response = new Response();
+        //    _response.Rentals = _repo.GetAllBorrowersInfo();
+        //    return _response;
+        //}
 
         public Response GetBorrowerByID(int borrowerID)
         {
@@ -123,6 +136,71 @@ namespace DVDLibrary.BLL
             else
             {
                 _response.Success = false;
+            }
+
+            return _response;
+        }
+        //***********************************************************************
+        //***********Ussing for the dropdownList for Add/HomeController********* 
+        public Response GetAllMpaaRatings()
+        {
+            _response.MpaaRatings = _repo.GetAllMpaaRatings();
+
+            if (_response.MpaaRatings != null)
+            {
+                _response.Success = true;
+            }
+
+            return _response;
+        } 
+        //*************************************************************************
+
+        //    return _response;
+        //}
+
+        public Response GetAllActors()
+        {
+            _response.Actors = _repo.GetAllActors();
+
+            if (_response.Actors != null)
+            {
+                _response.Success = true;
+            }
+
+            return _response;
+        }
+
+        public Response GetAllBorrowers()
+        {
+            _response.Borrowers = _repo.GetAllBorrowers();
+
+            if (_response.Borrowers != null)
+            {
+                _response.Success = true;
+            }
+
+            return _response;
+        }
+
+        public Response GetAllDirectors()
+        {
+            _response.Directors = _repo.GetAllDirectors();
+
+            if (_response.Directors != null)
+            {
+                _response.Success = true;
+            }
+
+            return _response;
+        }
+
+        public Response GetAllStudios()
+        {
+            _response.Studios = _repo.GetAllStudios();
+
+            if (_response.Studios != null)
+            {
+                _response.Success = true;
             }
 
             return _response;

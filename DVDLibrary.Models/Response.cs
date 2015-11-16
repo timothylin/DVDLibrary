@@ -14,6 +14,10 @@ namespace DVDLibrary.Models
         public MovieInfo Movie { get; set; }
         public List<MovieInfo> Movies { get; set; }
         public List<Actor> Actors { get; set; }
+        public List<Borrower> Borrowers { get; set; }
+        public List<Director> Directors { get; set; }
+        public List<MpaaRating> MpaaRatings { get; set; }
+        public List<Studio> Studios { get; set; }    
         public RentalInfo Rental { get; set; }  
         public List<RentalInfo> Rentals { get; set; }
 

@@ -7,6 +7,8 @@ using System.Web.Mvc;
 using System.Web.Services.Description;
 using DVDLibrary.BLL;
 using DVDLibrary.DataLayer;
+using DVDLibrary.Models;
+using DVDLibrary.UI.Models;
 
 namespace DVDLibrary.UI.Controllers
 {
@@ -48,19 +50,60 @@ namespace DVDLibrary.UI.Controllers
 
         public ActionResult Add()
         {
-            return View();
+            var ops = new MovieOperations();
+
+            MovieInfoVM movieInfoVm = new MovieInfoVM();
+
+            var ratingsResponse = ops.GetAllMpaaRatings();
+            var actorsResponse = ops.GetAllActors();
+            var borrowersResponse = ops.GetAllBorrowers();
+            var studiosResponse = ops.GetAllStudios();
+            var directorsResponse = ops.GetAllDirectors();
+
+            movieInfoVm.CreateMpaaRatingsList(ratingsResponse.MpaaRatings);
+            movieInfoVm.CreateActorsList(actorsResponse.Actors);
+            movieInfoVm.CreateBorrowersList(borrowersResponse.Borrowers);
+            movieInfoVm.CreateStudiosList(studiosResponse.Studios);
+            movieInfoVm.CreateDirectorsList(directorsResponse.Directors);
+
+            return View(movieInfoVm);
         }
 
-        //[HttpPost]
-        //public ActionResult Add()
-        //{
+        [HttpPost]
+        public ActionResult Add(MovieInfoVM movieInfoVm)
+        {
+            var ops = new MovieOperations();
 
-        //}
+            var ratingsResponse = ops.GetAllMpaaRatings();
+            var actorsResponse = ops.GetAllActors();
+            var borrowersResponse = ops.GetAllBorrowers();
+            var studiosResponse = ops.GetAllStudios();
+            var directorsResponse = ops.GetAllDirectors();
 
+//<<<<<<< HEAD
+
+//=======
+            movieInfoVm.CreateMpaaRatingsList(ratingsResponse.MpaaRatings);
+            movieInfoVm.CreateActorsList(actorsResponse.Actors);
+            movieInfoVm.CreateBorrowersList(borrowersResponse.Borrowers);
+            movieInfoVm.CreateStudiosList(studiosResponse.Studios);
+            movieInfoVm.CreateDirectorsList(directorsResponse.Directors);
+//>>>>>>> f1796536165f9dc13cd7107576260e39d4b7fcd2
+
+            if (ModelState.IsValid)
+            {
+                ops.AddMovie(movieInfoVm.Movie);
+
+                return View("Details", movieInfoVm.Movie);
+            }
+            else
+            {
+                return View(movieInfoVm);
+            }
+        }
         public ActionResult About()
         {
             return View();
         }
-
     }
 }
