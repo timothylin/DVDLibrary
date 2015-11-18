@@ -44,8 +44,9 @@ namespace DVDLibrary.UI.Controllers
         {
             var ops = new MovieOperations();
             ops.RemoveMovie(movieID);
+            var movie = ops.GetMovieByID(movieID);
 
-            return Content("ConfirmDelete");
+            return View("ConfirmDelete", movie.Movie);
         }
 
         public ActionResult Add()
@@ -80,21 +81,19 @@ namespace DVDLibrary.UI.Controllers
             var studiosResponse = ops.GetAllStudios();
             var directorsResponse = ops.GetAllDirectors();
 
-//<<<<<<< HEAD
-
-//=======
             movieInfoVm.CreateMpaaRatingsList(ratingsResponse.MpaaRatings);
             movieInfoVm.CreateActorsList(actorsResponse.Actors);
             movieInfoVm.CreateBorrowersList(borrowersResponse.Borrowers);
             movieInfoVm.CreateStudiosList(studiosResponse.Studios);
             movieInfoVm.CreateDirectorsList(directorsResponse.Directors);
-//>>>>>>> f1796536165f9dc13cd7107576260e39d4b7fcd2
+
 
             if (ModelState.IsValid)
             {
-                ops.AddMovie(movieInfoVm.Movie);
+                var response = ops.AddMovie(movieInfoVm.Movie);
+                var movie = ops.GetMovieByID(response.Movie.MovieID);
 
-                return View("Details", movieInfoVm.Movie);
+                return View("Details", movie.Movie);
             }
             else
             {

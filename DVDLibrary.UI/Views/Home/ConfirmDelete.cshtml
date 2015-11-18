@@ -4,9 +4,12 @@
     ViewBag.Title = "ConfirmDelete";
 }
 
-<h2 class="padding-top-40">@Model.Title has been Deleted</h2>
-
-@using (Html.BeginForm("Index", "Home", null, FormMethod.Post))
-            {
-    <button id="cancel" class="btn btn-primary">Back</button>
-}
+<h2 class="padding-top-40">That DVD entry has been Deleted.</h2>
+<div class="container">
+    <div class="col-lg-5 col-md-5 col-sm-12 col-center-block">
+        @using (Html.BeginForm("Index", "Home", null, FormMethod.Post))
+        {
+            <button id="cancel" class="btn btn-primary">Main Menu</button>
+        }
+    </div>
+</div>

@@ -22,7 +22,7 @@
                 <span class="icon-bar"></span>
             </button>
             <div id="logo" class="hidden-xs hidden-sm">
-                <a class="navbar-brand" href="~/Views/Home/Index.cshtml">
+                <a class="navbar-brand" href="~/Home/Index">
                     <span class="padding-left-5"><img id="logo-image" src="/Content/images/TimothyKimDVDLibraryLogo1.svg" /></span>
                     <span class="padding-top-5">Timothy Kim DVD Library</span>
                 </a>
@@ -63,8 +63,8 @@
                 <br/>
                 <hr/>
                 <div class="col-md-2 col-xs-2 padding-top-20 padding-left-40">
-                    <a href="~/Views/Home/Index.cshtml">
-                        <span><img id="logo-image" src="/Content/images/TimothyKimDVDLibraryLogo1.svg" /></span>
+                    <a href="~/Home/Index">
+                        <span><img id="footer-logo" src="/Content/images/TimothyKimDVDLibraryLogo1.svg" /></span>
                         <span><h6 class="alt-h6">Timothy Kim DVD Library</h6></span>
                     </a>
                 </div>
@@ -72,9 +72,9 @@
 
                     <ul class="list-no-style padding-top-20">
                         <li><h6 class="alt-h6">MENU</h6></li>
-                        <li><a href="#">All Videos</a></li>
-                        <li><a href="#">Add</a></li>
-                        <li><a href="#">About</a></li>
+                        <li><a href="~/Home/Index">All Videos</a></li>
+                        <li><a href="~/Home/Add">Add</a></li>
+                        <li><a href="~/Home/About">About</a></li>
                     </ul>
                 </div>
             </div>
@@ -84,7 +84,7 @@
                 <br />
                 <br />
                 <br />
-                <p>&copy; @DateTime.Now.Year - The Timothy Kim DVD Library
+                <p id="credit">&copy; @DateTime.Now.Year - The Timothy Kim DVD Library
                     <span>by Patrick Tighe, Lara Caves, Koshin Abdi, and Timothy Lin</span></p>
                 <div class="text-center">
                     <i class="fa fa-facebook"></i>
