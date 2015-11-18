@@ -16,7 +16,6 @@ namespace DVDLibrary.DataLayer
         public static List<MovieInfo> Movies { get; set; }
         public static List<RentalInfo> Rentals { get; set; }
         public static List<Actor> Actors { get; set; } 
-        public static List<Actor> MovieActors { get; set; } 
         public static List<Borrower> Borrowers { get; set; } 
         public static List<Director> Directors { get; set; } 
         public static List<MpaaRating> MpaaRatings { get; set; } 
@@ -27,7 +26,6 @@ namespace DVDLibrary.DataLayer
             Movies = new List<MovieInfo>();
             Rentals = new List<RentalInfo>();
             Actors = new List<Actor>();
-            MovieActors = new List<Actor>();
             Borrowers = new List<Borrower>();
             Directors = new List<Director>();
             MpaaRatings = new List<MpaaRating>();
@@ -98,7 +96,7 @@ namespace DVDLibrary.DataLayer
             return movie;
         }
 
-        public MovieInfo AddMovieWithInput(MovieInfo movie)
+        public MovieInfo AddMovie(MovieInfo movie)
         {
             using (SqlConnection cn = new SqlConnection(Settings.ConnectionString))
             {
@@ -171,12 +169,12 @@ namespace DVDLibrary.DataLayer
                 //var actorID = pa.Get<int>("ActorID");
 
 
-                foreach (var actor in movie.Actors)
+                foreach (var actorID in movie.ActorIDs)
                 {
                     var pma = new DynamicParameters();
 
                     pma.Add("@MovieID", movieID);
-                    pma.Add("@ActorID", actor.ActorID);
+                    pma.Add("@ActorID", actorID);
 
                     cn.Execute("InsertMovieActors", pma, commandType: CommandType.StoredProcedure);
                 }
@@ -365,11 +363,11 @@ namespace DVDLibrary.DataLayer
 
                 var p = new DynamicParameters();
                 p.Add("@MovieID", movieID);
-                MovieActors = cn.Query<Actor>("GetActorsByMovieID", p, commandType: CommandType.StoredProcedure).ToList();
+                Actors = cn.Query<Actor>("GetActorsByMovieID", p, commandType: CommandType.StoredProcedure).ToList();
 
             }
 
-            return MovieActors;
+            return Actors;
         }
 
         public List<Actor> GetAllActors()

@@ -87,7 +87,6 @@ namespace DVDLibrary.UI.Controllers
             movieInfoVm.CreateStudiosList(studiosResponse.Studios);
             movieInfoVm.CreateDirectorsList(directorsResponse.Directors);
 
-
             if (ModelState.IsValid)
             {
                 var response = ops.AddMovie(movieInfoVm.Movie);
