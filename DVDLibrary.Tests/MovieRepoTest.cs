@@ -72,7 +72,7 @@ namespace DVDLibrary.Tests
             movie.Studio.StudioName = "Robot";
 
 
-            MovieInfo movieinfo = _repo.AddMovieWithInput(movie);
+            MovieInfo movieinfo = _repo.AddMovie(movie);
             var movieReturned = _repo.GetMovieByID(movieinfo.MovieID);
 
             var actual = new JavaScriptSerializer().Serialize(movieReturned);

@@ -17,6 +17,7 @@ namespace DVDLibrary.Models
         public int ReleaseDate { get; set; }
         public Studio Studio { get; set; }
         public List<Actor> Actors { get; set; }
+        public List<int> ActorIDs { get; set; } 
 
         public MovieInfo()
         {
@@ -24,6 +25,7 @@ namespace DVDLibrary.Models
             MpaaRating = new MpaaRating();
             Director = new Director();
             Studio = new Studio();
+            ActorIDs = new List<int>();
         }
     }
 }

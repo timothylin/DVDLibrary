@@ -43,8 +43,7 @@
                         <div class="col-md-6">
                             <h6>Actors: * @Html.ValidationMessageFor(m => m.ActorsList)</h6>
                             <div id="actor">
-                                <p>@Html.DropDownListFor(m => m.Movie.Actors[0].ActorID, Model.ActorsList, new {style = "width:100%"})</p>
-                                <button id="AddActor">Add New Actor</button>
+                                <p>@Html.ListBoxFor(m => m.Movie.ActorIDs, new MultiSelectList(Model.ActorsList, "Value", "Text"), new {style = "width:100%", Multiple = "multiple"})</p>
                             </div>
                         </div>
                     </div>
@@ -62,8 +61,4 @@
         </div>
     </div>
 </div>
-
-@section Scripts {
-    <script type="text/javascript" src="~/Scripts/app/newActor.js"></script>
-}
 

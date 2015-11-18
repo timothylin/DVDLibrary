@@ -56,7 +56,7 @@ namespace DVDLibrary.BLL
         {
             _response = new Response();
 
-            var movie = _repo.AddMovieWithInput(movieToAdd);
+            var movie = _repo.AddMovie(movieToAdd);
 
             if (movie != null)
             {
