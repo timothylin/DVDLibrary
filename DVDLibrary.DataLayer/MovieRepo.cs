@@ -191,7 +191,7 @@ namespace DVDLibrary.DataLayer
             {
 
                 var cmd = new SqlCommand();
-                cmd.CommandText = "delete Actors " +
+                cmd.CommandText = "delete MovieActors " +
                                   "where MovieID = @MovieID " +
                                   "delete MovieBorrower " + 
                                   "where MovieId = @MovieID " +
