@@ -30,7 +30,8 @@
                             <h6>MPAA Rating: * @Html.ValidationMessageFor(m => m.Movie.MpaaRating.FilmRating)</h6>
                             <p>
                                 @*@Html.LabelFor(m => m.MpaaRatingsList, new {@class = "control-label col-md-2"})*@
-                                @Html.DropDownListFor(m => m.Movie.MpaaRating.MpaaRatingID, Model.MpaaRatingsList, new {@class = "control-label col-md-2"})
+                                @Html.DropDownListFor(m => m.Movie.MpaaRating.MpaaRatingID, Model.MpaaRatingsList, new {@*@class = "control-label col-md-2"*@style = "width:100%"
+                           })
                             </p>
                             </div>
                         <div class="col-md-6">

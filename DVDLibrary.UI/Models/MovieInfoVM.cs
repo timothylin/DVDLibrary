@@ -26,6 +26,7 @@ namespace DVDLibrary.UI.Models
             BorrowersList = new List<SelectListItem>();
             DirectorsList = new List<SelectListItem>();
             StudiosList = new List<SelectListItem>();
+            Movie = new MovieInfo();
         }
 
         public void CreateMpaaRatingsList(List<MpaaRating> listOfMpaaRatings)
