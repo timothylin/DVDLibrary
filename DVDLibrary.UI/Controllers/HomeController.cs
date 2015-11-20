@@ -18,25 +18,25 @@ namespace DVDLibrary.UI.Controllers
         public ActionResult Index()
         {
             var ops = new MovieOperations();
-            var movies = ops.GetAllMovies();
-            return View(movies.Movies);
+            var moviesResponse = ops.GetAllMovies();
+            return View(moviesResponse.Movies);
         }
 
         [HttpPost]
         public ActionResult Details(int movieID)
         {
             var ops = new MovieOperations();
-            var movie = ops.GetMovieByID(movieID);
+            var movieResponse = ops.GetMovieByID(movieID);
 
-            return View("Details", movie.Movie);
+            return View("Details", movieResponse.Movie);
         }
 
         
         public ActionResult Remove(int movieID)
         {
             var ops = new MovieOperations();
-            var movie = ops.GetMovieByID(movieID);
-            return View("Remove", movie.Movie);
+            var movieResponse = ops.GetMovieByID(movieID);
+            return View("Remove", movieResponse.Movie);
         }
 
         [HttpPost]
@@ -44,9 +44,9 @@ namespace DVDLibrary.UI.Controllers
         {
             var ops = new MovieOperations();
             ops.RemoveMovie(movieID);
-            var movie = ops.GetMovieByID(movieID);
+            var movieResponse = ops.GetMovieByID(movieID);
 
-            return View("ConfirmDelete", movie.Movie);
+            return View("ConfirmDelete", movieResponse.Movie);
         }
 
         public ActionResult Add()
@@ -55,17 +55,11 @@ namespace DVDLibrary.UI.Controllers
 
             MovieInfoVM movieInfoVm = new MovieInfoVM();
 
-            var ratingsResponse = ops.GetAllMpaaRatings();
-            var actorsResponse = ops.GetAllActors();
-            var borrowersResponse = ops.GetAllBorrowers();
-            var studiosResponse = ops.GetAllStudios();
-            var directorsResponse = ops.GetAllDirectors();
-
-            movieInfoVm.CreateMpaaRatingsList(ratingsResponse.MpaaRatings);
-            movieInfoVm.CreateActorsList(actorsResponse.Actors);
-            movieInfoVm.CreateBorrowersList(borrowersResponse.Borrowers);
-            movieInfoVm.CreateStudiosList(studiosResponse.Studios);
-            movieInfoVm.CreateDirectorsList(directorsResponse.Directors);
+            movieInfoVm.CreateMpaaRatingsList(ops.GetAllMpaaRatings().MpaaRatings);
+            movieInfoVm.CreateActorsList(ops.GetAllActors().Actors);
+            movieInfoVm.CreateBorrowersList(ops.GetAllBorrowers().Borrowers);
+            movieInfoVm.CreateStudiosList(ops.GetAllStudios().Studios);
+            movieInfoVm.CreateDirectorsList(ops.GetAllDirectors().Directors);
 
             return View(movieInfoVm);
         }
@@ -75,30 +69,25 @@ namespace DVDLibrary.UI.Controllers
         {
             var ops = new MovieOperations();
 
-            var ratingsResponse = ops.GetAllMpaaRatings();
-            var actorsResponse = ops.GetAllActors();
-            var borrowersResponse = ops.GetAllBorrowers();
-            var studiosResponse = ops.GetAllStudios();
-            var directorsResponse = ops.GetAllDirectors();
-
-            movieInfoVm.CreateMpaaRatingsList(ratingsResponse.MpaaRatings);
-            movieInfoVm.CreateActorsList(actorsResponse.Actors);
-            movieInfoVm.CreateBorrowersList(borrowersResponse.Borrowers);
-            movieInfoVm.CreateStudiosList(studiosResponse.Studios);
-            movieInfoVm.CreateDirectorsList(directorsResponse.Directors);
+            movieInfoVm.CreateMpaaRatingsList(ops.GetAllMpaaRatings().MpaaRatings);
+            movieInfoVm.CreateActorsList(ops.GetAllActors().Actors);
+            movieInfoVm.CreateBorrowersList(ops.GetAllBorrowers().Borrowers);
+            movieInfoVm.CreateStudiosList(ops.GetAllStudios().Studios);
+            movieInfoVm.CreateDirectorsList(ops.GetAllDirectors().Directors);
 
             if (ModelState.IsValid)
             {
-                var response = ops.AddMovie(movieInfoVm.Movie);
-                var movie = ops.GetMovieByID(response.Movie.MovieID);
+                var addMovieResponse = ops.AddMovie(movieInfoVm.Movie);
+                var addedMovieResponse = ops.GetMovieByID(addMovieResponse.Movie.MovieID);
 
-                return View("Details", movie.Movie);
+                return View("Details", addedMovieResponse.Movie);
             }
             else
             {
                 return View(movieInfoVm);
             }
         }
+
         public ActionResult About()
         {
             return View();
