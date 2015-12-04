@@ -12,7 +12,7 @@
         <br/>
         @using (Html.BeginForm("Add", "Home", null, FormMethod.Post, new {@id = "addMovieForm"}))
         {
-            @*@Html.ValidationSummary(true)*@
+            @Html.ValidationSummary()
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="row">

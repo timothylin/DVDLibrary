@@ -96,6 +96,11 @@ footer i {
 	height: 300px;
 }
 
+.banner-h1 {
+    color: white;
+    padding-top: 140px;
+    text-align: center;    
+}
 
 #About-paragraph {
     background-color: #024c61;
@@ -229,12 +234,6 @@ h2{
 
 h6 {
     font-size: 14px;
-}
-
-.banner-h1 {
-    color: white;
-    padding-top: 140px;
-    text-align: center;    
 }
 
 .alt-h6 {
