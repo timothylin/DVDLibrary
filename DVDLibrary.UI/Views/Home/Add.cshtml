@@ -9,63 +9,56 @@
 
 <div class="container">
     <div class="col-lg-5 col-md-5 col-sm-12 col-center-block">
-        <br/>
-        @using (Html.BeginForm("Add", "Home", null, FormMethod.Post, new {@id = "addMovieForm"}))
+        <br />
+        @using (Html.BeginForm("Add", "Home", null, FormMethod.Post, new { @id = "addMovieForm" }))
         {
             @Html.ValidationSummary()
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-6 form-group">
-                            <h6>Movie Title: * @Html.ValidationMessageFor(m => m.Movie.Title)</h6>
-                            <p>@Html.TextBoxFor(m => m.Movie.Title, new {style = "width:100%", placeholder = "Movie Title", @class = "form-control"})</p>
+                            <h6>Movie Title: * @*@Html.ValidationMessageFor(m => m.Movie.Title)*@</h6>
+                                <p>@Html.TextBoxFor(m => m.Movie.Title, new { style = "width:100%", placeholder = "Movie Title", @class = "form-control" })</p>
                         </div>
                         <div class="col-md-6 form-group">
-                            <h6>Release Date: * @Html.ValidationMessageFor(m => m.Movie.ReleaseDate)</h6>
-                            <p>@Html.TextBoxFor(m => m.Movie.ReleaseDate, new {style = "width:100%", placeholder = "e.g. 2015", @class = "form-control" })</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 form-group">
-                            <h6>MPAA Rating: * @Html.ValidationMessageFor(m => m.Movie.MpaaRating.FilmRating)</h6>
-                            <p>
-                                @Html.DropDownListFor(m => m.Movie.MpaaRating.MpaaRatingID, Model.MpaaRatingsList, "Choose a rating", new {@style = "width:100%", @class = "form-control" })
-                            </p>
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <h6>Studio Name: * @Html.ValidationMessageFor(m => m.StudiosList)</h6>
-                            <p>@Html.DropDownListFor(m => m.Movie.Studio.StudioID, Model.StudiosList, "Choose a studio", new {style = "width:100%", @class = "form-control" })</p>
+                            <h6>Release Date: * @*@Html.ValidationMessageFor(m => m.Movie.ReleaseDate)*@</h6>
+                                <p>@Html.TextBoxFor(m => m.Movie.ReleaseDate, new { style = "width:100%", placeholder = "e.g. 2015", @class = "form-control" })</p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 form-group">
-                            <h6>Director: * @Html.ValidationMessageFor(m => m.DirectorsList)</h6>
-                            <p>@Html.DropDownListFor(m => m.Movie.Director.DirectorID, Model.DirectorsList, "Choose a director", new {style = "width:100%", @class = "form-control" })</p>
+                            <h6>MPAA Rating: * @*@Html.ValidationMessageFor(m => m.Movie.MpaaRating.FilmRating)*@</h6>
+                                <p>
+                                    @Html.DropDownListFor(m => m.Movie.MpaaRating.MpaaRatingID, Model.MpaaRatingsList, "Choose a rating", new { @style = "width:100%", @class = "form-control" })
+                                </p>
                         </div>
                         <div class="col-md-6 form-group">
-                            <h6>Actors: * @Html.ValidationMessageFor(m => m.ActorsList)</h6>
+                            <h6>Studio Name: * @*@Html.ValidationMessageFor(m => m.StudiosList)*@</h6>
+                                <p>@Html.DropDownListFor(m => m.Movie.Studio.StudioID, Model.StudiosList, "Choose a studio", new { style = "width:100%", @class = "form-control" })</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <h6>Director: * @*@Html.ValidationMessageFor(m => m.DirectorsList)*@</h6>
+                                <p>@Html.DropDownListFor(m => m.Movie.Director.DirectorID, Model.DirectorsList, "Choose a director", new { style = "width:100%", @class = "form-control" })</p>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <h6>Actors: * @*@Html.ValidationMessageFor(m => m.ActorsList)*@</h6>
                             <div id="actor">
-                                <p>@Html.ListBoxFor(m => m.Movie.ActorIDs, new MultiSelectList(Model.ActorsList, "Value", "Text"), new {style = "width:100%", Multiple = "multiple", @class = "form-control" })</p>
+                                    <p>@Html.ListBoxFor(m => m.Movie.ActorIDs, new MultiSelectList(Model.ActorsList, "Value", "Text"), new { style = "width:100%", Multiple = "multiple", @class = "form-control" })</p>
                             </div>
                         </div>
                     </div>
-
                 </div>
-                @*@using (Html.BeginForm("Add", "Home", null, FormMethod.Post))
-                        {
-                            @Html.Hidden("Movie", Model)*@
-
-                @*}*@
-
-                <br/>
-                <br/>
+                <br />
+                <br />
             </div>
-            <div class="col-center-block">
-                <button class="btn btn-danger">Add DVD</button>
-            </div>
+                        <div class="col-center-block">
+                            <button class="btn btn-danger">Add DVD</button>
+                        </div>
         }
-        <br/>
-        <br/>
+        <br />
+        <br />
     </div>
 </div>
 
@@ -77,4 +70,4 @@
 
 
 
-        
+

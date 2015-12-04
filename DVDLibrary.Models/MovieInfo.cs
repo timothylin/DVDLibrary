@@ -13,17 +13,17 @@ namespace DVDLibrary.Models
     public class MovieInfo
     {
         public int MovieID { get; set; }
-        //[Required(ErrorMessage = "Please enter a title!")]
+        [Required(ErrorMessage = "Please enter a title!")]
         public string Title { get; set; }
-        //[Required(ErrorMessage = "Please select a MPAA Rating!")]
+        [Required(ErrorMessage = "Please select a MPAA Rating!")]
         public MpaaRating MpaaRating { get; set; }
-        //[Required(ErrorMessage = "Please select a director!")]
+        [Required(ErrorMessage = "Please select a director!")]
         public Director Director { get; set; }
-        //[Required(ErrorMessage = "Please enter a release date!")]
+        [Required(ErrorMessage = "Please enter a release date!")]
         public int ReleaseDate { get; set; }
-        //[Required(ErrorMessage = "Please select a studio!")]
+        [Required(ErrorMessage = "Please select a studio!")]
         public Studio Studio { get; set; }
-        //[Required(ErrorMessage = "Please select actors for the movie!")]
+        [Required(ErrorMessage = "Please select actors for the movie!")]
         public List<Actor> Actors { get; set; }
         public List<int> ActorIDs { get; set; } 
 
