@@ -5,7 +5,7 @@
                 required: true
             },
             "Movie.MpaaRating.MpaaRatingID": {
-                required: true,
+                required: true
             },
             "Movie.Director.DirectorID": {
                 required: true
